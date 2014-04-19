@@ -38,7 +38,6 @@ def main():
         printCard(cardPlayer)
 
 
-    pass
 
 def loadCard(name, health, attack, cost) :
     """Create servant card"""
@@ -46,7 +45,7 @@ def loadCard(name, health, attack, cost) :
     cardServant = {"name" : name, "health" : health, "attack" : attack, "cost" : cost}
     return cardServant
 
-    pass
+
 
 def printCard(servant, displayMana = True) :
     """display servant card"""
@@ -60,14 +59,14 @@ def printCard(servant, displayMana = True) :
         print("name " , servant["name"] ,
         "(" , servant["attack"] , "/" , servant["health"] , ")")
 
-    pass
+
 
 def fight(servantOne, servantTwo) :
     """Servant one hit servant two"""
 
     servantTwo["health"] -= servantOne["attack"]
 
-    pass
+
 
 def loadCardSet(nameFile):
     """Load a card set from a file"""
@@ -85,7 +84,8 @@ def loadCardSet(nameFile):
     file.close
     return listServant
 
-    pass
+
+
 
 def initPlayer(serviteur):
     """Create player witch hand of 4 card"""
@@ -99,72 +99,43 @@ def initPlayer(serviteur):
     player = {"health" : 30, "mana" : 1, "hand" : hand, "field" : []}
     return player
 
-    pass
+
 
 def playTrun(player, ennemy):
     """Player can send servant to the field and attack ennemy servant"""
 
     choice = False
+    print("================================")
+    print("Joueur ",player, " comence a jouer")
 
 #Test si le joueur peut attaquer
 
     if len(player["field"]) == 0 :
-        print("Vous n'avez aucun serviteur pour attaquer")
+        print("\nVous n'avez aucun serviteur pour attaquer")
     elif len(ennemy["field"] ) == 0 :
         print("Il n'y a aucune serviteur ennemie a attaquer")
     else :
-        print("Avec quel serviteur voulez vous attaquer ?")
-        nameServantAttack = ""
 
 #Phase d'attaque
 
         servantCanAttack = list(player["field"])
         while 0 < len(servantCanAttack) :
-            print("Nombre de tour d'attaque : ", len(servantCanAttack))
-            print("Avec quel serviteur voulez vous attaquer ?")
+            print("\nAvec quel serviteur voulez vous attaquer ?")
             nameServantAttack = ""
-#Liste des serviteurs du joueur sur le champ de bataille
 
-            print("Liste des servants sur le terrain")
-            for cardPlayer in player["field"] :
-                printCard(cardPlayer)
-            print("Liste de vos serviteur sur le terrain qui peuvent attaquer")
-            for cardPlayer in servantCanAttack :
-                printCard(cardPlayer)
-            while choice == False :
-                nameServantAttack = input("Choisisez le nom du serviteur qui va attaquer")
-                for card in servantCanAttack :
-                    if nameServantAttack == card["name"] :
-                        choice = True
-            choice = False
-            servantAttack = ""
-            for servant in servantCanAttack :
-                if servant["name"] == nameServantAttack:
-                    servantAttack = servant
-                    servantCanAttack.remove(servant)
+    #Selection du serviteur d'attaque
 
-#Liste des serviteurs de l'ennemie sur le champ de bataille
+            servantAttack = selectedStricker(player, servantCanAttack)
 
-            print("Liste des serviteur adverse sur le terrain")
-            for cardPlayer in ennemy["field"] :
-                printCard(cardPlayer)
-            print("Quel serviteur ennemy voulez vous attaquer ?")
-            nameServantTarget = ""
-            while choice == False:
-                nameServantTarget = input("Choisisez le nom du serviteur a attaquer")
-                for card in ennemy["field"] :
-                    if nameServantTarget == card["name"] :
-                        choice = True
-            choice = False
-            servantTarget = ""
-            for servant in ennemy["field"]:
-                if servant["name"] == nameServantTarget:
-                    servantTarget = servant
-            print("-----------FIGHT-----------")
+    #Selection du serviteur ennemie cible
+
+            servantTarget = selectedTarget(ennemy)
+
+            print("\n-----------FIGHT-----------\n")
             print(servantAttack["name"], " (", servantAttack["attack"], "/", servantAttack["health"], ") attaque ", servantTarget["name"], " (", servantTarget["attack"], "/", servantTarget["health"], ")")
             fight(servantAttack, servantTarget)
 
-#Nettoie le champ de bataille
+    #Nettoyage le champ de bataille
 
             if(servantTarget["health"] <= 0) :
                  ennemy["field"].remove(servantTarget)
@@ -174,15 +145,71 @@ def playTrun(player, ennemy):
 
 #Phase d'envoie sur le champ de bataille
 
+    goToTheField(player)
+    servantCanAttack = list(player["field"])
 
-    print("Liste de vos serviteur dans votre main")
+
+
+
+def selectedStricker(player, servantCanAttack):
+    """Return servant selected to attack"""
+
+    choice = False
+    print("\nListe des servants sur le terrain")
+    for cardPlayer in player["field"] :
+       printCard(cardPlayer)
+    print("\nListe de vos serviteur sur le terrain qui peuvent attaquer")
+    for cardPlayer in servantCanAttack :
+       printCard(cardPlayer)
+    while choice == False :
+       nameServantAttack = input("Choisisez le nom du serviteur qui va attaquer\n")
+       for card in servantCanAttack :
+           if nameServantAttack == card["name"] :
+               choice = True
+    choice = False
+    servantAttack = ""
+    for servant in servantCanAttack :
+       if servant["name"] == nameServantAttack:
+           servantAttack = servant
+           servantCanAttack.remove(servant)
+
+    return servantAttack
+
+
+
+def selectedTarget(ennemy) :
+
+    choice = False
+    print("\nListe des serviteur adverse sur le terrain")
+    for cardPlayer in ennemy["field"] :
+        printCard(cardPlayer)
+    print("\nQuel serviteur ennemie voulez vous attaquer ?")
+    nameServantTarget = ""
+    while choice == False:
+        nameServantTarget = input("Choisisez le nom du serviteur a attaquer\n")
+        for card in ennemy["field"] :
+            if nameServantTarget == card["name"] :
+                choice = True
+    choice = False
+    servantTarget = ""
+    for servant in ennemy["field"]:
+        if servant["name"] == nameServantTarget:
+            servantTarget = servant
+
+    return servantTarget
+
+
+def goToTheField(player) :
+
+    choice = False
+    print("\nListe de vos serviteur dans votre main")
     for cardPlayer in player["hand"] :
         printCard(cardPlayer)
     if len(player["hand"]) > 0 :
-        print("Quel serviteur voulez vous envoyer sur le terrain ?")
+        print("\nQuel serviteur voulez vous envoyer sur le terrain ?")
         nameServantGoToField = ""
         while (choice == False) :
-             nameServantGoToField = input("Choisisez le nom du serviteur a envoyer")
+             nameServantGoToField = input("Choisisez le nom du serviteur a envoyer\n")
              for card in player["hand"] :
                 if nameServantGoToField == card["name"] :
                     choice = True
@@ -190,9 +217,7 @@ def playTrun(player, ennemy):
             if servant["name"] == nameServantGoToField:
                 player["field"].append(servant)
                 player["hand"].remove(servant)
-    servantCanAttack = list(player["field"])
 
-    pass
 
 
 if __name__ == '__main__':
