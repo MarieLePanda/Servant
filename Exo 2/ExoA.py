@@ -48,7 +48,7 @@ def loadCard(name, health, attack, cost) :
 
 
 def printCard(servant, displayMana = True) :
-    """display servant card"""
+    """display servant cards"""
 
     if(displayMana):
         print("name " , servant["name"] ,
@@ -88,7 +88,7 @@ def loadCardSet(nameFile):
 
 
 def initPlayer(serviteur):
-    """Create player witch hand of 4 card"""
+    """Create player witch a hand of 4 cards"""
 
     hand = []
     while len(hand) < 4 :
@@ -101,18 +101,18 @@ def initPlayer(serviteur):
 
 
 
-def playTrun(player, ennemy):
-    """Player can send servant to the field and attack ennemy servant"""
+def playTrun(player, enemy):
+    """The player can send a servant in the field and attack the enemy player or servants"""
 
     choice = False
     print("================================")
-    print("Joueur ",player, " comence a jouer")
+    toStringPlayer(player)
 
 #Test si le joueur peut attaquer
 
     if len(player["field"]) == 0 :
         print("\nVous n'avez aucun serviteur pour attaquer")
-    elif len(ennemy["field"] ) == 0 :
+    elif len(enemy["field"] ) == 0 :
         print("Il n'y a aucune serviteur ennemie a attaquer")
     else :
 
@@ -129,7 +129,7 @@ def playTrun(player, ennemy):
 
     #Selection du serviteur ennemie cible
 
-            servantTarget = selectedTarget(ennemy)
+            servantTarget = selectedTarget(enemy)
 
             print("\n-----------FIGHT-----------\n")
             print(servantAttack["name"], " (", servantAttack["attack"], "/", servantAttack["health"], ") attaque ", servantTarget["name"], " (", servantTarget["attack"], "/", servantTarget["health"], ")")
@@ -138,7 +138,7 @@ def playTrun(player, ennemy):
     #Nettoyage le champ de bataille
 
             if(servantTarget["health"] <= 0) :
-                 ennemy["field"].remove(servantTarget)
+                 enemy["field"].remove(servantTarget)
                  print( servantTarget["name"], " est hors jeu")
             else :
                 print("Il reste ",  servantTarget["health"], " points de vie a ", servantTarget["name"])
@@ -147,12 +147,13 @@ def playTrun(player, ennemy):
 
     goToTheField(player)
     servantCanAttack = list(player["field"])
+    player["mana"] += 1
 
 
 
 
 def selectedStricker(player, servantCanAttack):
-    """Return servant selected to attack"""
+    """Returns the servant selected to attack"""
 
     choice = False
     print("\nListe des servants sur le terrain")
@@ -177,22 +178,23 @@ def selectedStricker(player, servantCanAttack):
 
 
 
-def selectedTarget(ennemy) :
+def selectedTarget(enemy) :
+    """Returns the enemy servant targeted for attack"""
 
     choice = False
     print("\nListe des serviteur adverse sur le terrain")
-    for cardPlayer in ennemy["field"] :
+    for cardPlayer in enemy["field"] :
         printCard(cardPlayer)
     print("\nQuel serviteur ennemie voulez vous attaquer ?")
     nameServantTarget = ""
     while choice == False:
         nameServantTarget = input("Choisisez le nom du serviteur a attaquer\n")
-        for card in ennemy["field"] :
+        for card in enemy["field"] :
             if nameServantTarget == card["name"] :
                 choice = True
     choice = False
     servantTarget = ""
-    for servant in ennemy["field"]:
+    for servant in enemy["field"]:
         if servant["name"] == nameServantTarget:
             servantTarget = servant
 
@@ -200,6 +202,7 @@ def selectedTarget(ennemy) :
 
 
 def goToTheField(player) :
+    """Sends a servant on the field"""
 
     choice = False
     print("\nListe de vos serviteur dans votre main")
@@ -217,6 +220,14 @@ def goToTheField(player) :
             if servant["name"] == nameServantGoToField:
                 player["field"].append(servant)
                 player["hand"].remove(servant)
+
+
+
+def toStringPlayer(player) :
+    """Displays health and mana player"""
+
+    print("Player - health : ", player["health"], " Mana : ", player["mana"] )
+
 
 
 
