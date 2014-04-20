@@ -56,6 +56,7 @@ def fight(servantOne, servantTwo) :
     print("\n-----------FIGHT-----------\n")
     print(servantOne["name"], " (", servantOne["attack"], "/", servantOne["health"], ") attaque ", servantTwo["name"], " (", servantTwo["attack"], "/", servantTwo["health"], ")")
     servantTwo["health"] -= servantOne["attack"]
+    servantOne["health"] -= servantTwo["attack"]
 
 
 def newFight(servantOne, enemy = None, servantTwo = None):
@@ -64,6 +65,7 @@ def newFight(servantOne, enemy = None, servantTwo = None):
     if enemy == None :
         print(servantOne["name"], " (", servantOne["attack"], "/", servantOne["health"], ") attaque ", servantTwo["name"], " (", servantTwo["attack"], "/", servantTwo["health"], ")")
         servantTwo["health"] -= servantOne["attack"]
+        servantOne["health"] -= servantTwo["attack"]
     else :
         print(servantOne["name"], " (", servantOne["attack"], "/", servantOne["health"], ") attaque ", enemy["name"], " (", enemy["health"], ")")
         enemy["health"] -= servantOne["attack"]
