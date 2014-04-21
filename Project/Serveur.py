@@ -29,7 +29,7 @@ def main():
 ##    while msgClient != b"fin":
 ##        msgClient = connectionClient.recv(1024)
 ##        # L'instruction ci-dessous peut lever une exception si le message
-##        # Réceptionné comporte des accents
+##        # RÃ©ceptionnÃ© comporte des accents
 ##        print(msgClient.decode())
 ##        msgServer = input(">").encode()
 ##        connectionClient.send(msgServer)
@@ -46,7 +46,7 @@ def main():
     winner = None
     while winner == None :
         if i % 2 == 0 :
-            winner = playTrun(playerOne, connectionClient)
+            winner = youPlay(playerOne, connectionClient)
         else :
             winner =  FieldNetwork.playTrun(playerTwo, playerOne, connectionClient)
         i += 1
@@ -61,54 +61,27 @@ def main():
 
 
 
-def playTrun(player, connectionClient):
+def youPlay(player, connectionClient):
     """The player can send a servant in the field and attack the enemy player or servants"""
+
     connectionClient.send(player.name.encode())
     print("=======================DEBUT PHASE DE JEU JOUEUR ", player.name ,"=======================")
     choice = False
     winner = None
-    player.toString()
-
-#Test si le joueur peut attaquer
-
+    playerToString = "Player "
+    playerToString += player.name
+    playerToString += " - health : "
+    playerToString += str(player.health)
+    playerToString += " Mana : "
+    playerToString += str(player.mana)
+    connectionClient.send(playerToString.encode())
+    print(player.toString())
     if len(player.field) <= 0 :
         print("\nVous n'avez aucun serviteur pour attaquer")
+        connectionClient.send(("Aucun serviteur adverse pour attaquer").encode())
     else :
-
-#Phase d'attaque
-
-        servantCanAttack = list(player.field)
-        while 0 < len(servantCanAttack) :
-            player.displayField(enemy)
-            print("\nAvec quel serviteur voulez vous attaquer ?")
-            nameServantAttack = ""
-
-    #Selection du serviteur d'attaque
-
-            servantAttack = player.selectedStricker(servantCanAttack)
-
-    #Selection de la cible
-            if 0 < len(enemy.field) :
-                player.displayField(enemy)
-                print("\nVoulez vous attaquer le joueur ennemie ou ses servant ?")
-                target = player.selectedTarget(enemy)
-                if type(target) == Player :
-                    servantAttack.newFight(enemy = target)
-                else :
-                    servantAttack.newFight(card = target)
-            else :
-                print("Vous ne pouvez qu'attaquer le joueur")
-                servantAttack.newFight(enemy)
-            player.clean()
-            enemy.clean()
-            if enemy.health <= 0 :
-                print("VICTOIRE")
-                return player
-
-    player.deploy()
-    player.setMana(player.mana + 1)
-    player.pickUp(CardSet.listCard)
-    return winner
+        input()
+    input()
 
 
 if __name__ == '__main__':

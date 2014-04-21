@@ -15,7 +15,7 @@ from Player import Player
 from CardSet import CardSet
 
 class FieldNetwork :
-    enemy
+
     def playTrun(player, enemy, connectionClient) :
         """The player can send a servant in the field and attack the enemy player or servants"""
 
