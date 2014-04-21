@@ -17,34 +17,19 @@ from CardSet import CardSet
 
 def main():
 
-    connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    connection.bind(("", 12800))
-    connection.listen(5)
-    connectionClient, infosConnection = connection.accept()
+    connectionServeur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    connectionServeur.connect(("localhost", 12800))
     listCard = CardSet.loadCardSet("C:\\Users\\MKSJ\\Documents\\GitHub\\Servant\\Exo 2\\cardSet")
-    i = 0
-    for c in listCard :
-        print(i, " ")
-        c.print()
-        i +=1
-    playerOne = Player("panda", listCard)
-    playerTwo = Player("koala", listCard)
-    i = 0
-    winner = None
-##    while winner == None :
-##        if i % 2 == 0 :
-##            winner = playTrun(playerOne, playerTwo)
-##        else :
-##            winner =  playTrun(playerTwo, playerOne)
-##        i += 1
-##    playerOne.toString()
-##    playerTwo.toString()
-##    print("Vainqueur : ", winner.name)
-
-    for c in listCard :
-        print(i, " ")
-        c.print()
-        i +=1
+    print("Connexion reussite avec le serveur")
+    msgServeur = b""
+    while msgServeur != b"fin":
+        msgServeur = input("> ")
+        # Peut planter si vous tapez des caractères spéciaux
+        msgServeur = msgServeur.encode()
+        # On envoie le message
+        connectionServeur.send(msgServeur)
+        msg_recu = connectionServeur.recv(1024)
+        print(msg_recu.decode()) # Là encore, peut planter s'il y a des accents
 
 
 
