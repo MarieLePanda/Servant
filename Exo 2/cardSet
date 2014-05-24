@@ -1,36 +1,36 @@
-Amelie 5 30 2
-Adam 5 30 2
-Beatrice 2 20 1
-Brice 2 20 1
-Claire 10 60 5
-Carl 10 60 5
-Diane 5 30 2
-Diego 5 30 2
-Eva 2 20 1
-Eric 2 20 1
-Flora 10 60 5
-Florian 10 60 5
-Gabrielle 5 30 2
-Gaspard 5 30 2
-Hope 2 20 1
-Henry 2 20 1
-Isabelle 10 60 5
-Izac 10 60 5
-Josephine 5 30 2
-Jean 5 30 2
-Kathy 2 20 1
-Keyvan 2 20 1
-Laura 10 60 5
-Leo 10 60 5
-Marie 5 30 2
-Mickael 5 30 2
-Nathalie 2 20 1
-Nathan 2 20 1
-Ophelie 10 60 5
-Olaf 10 60 5
-Peneloppe 5 30 2
-Patrick 5 30 2
-Rachel 2 20 1
-Raphael 2 20 1
-Sandrine 10 60 5
-Sylvain 10 60 5
+Amelie 5 30 2 Provoc 5 NoCamo
+Adam 5 30 2 NoProvoc 5 Camo
+Beatrice 2 20 1 Provoc 5 NoCamo
+Brice 2 20 1 NoProvoc 5 Camo
+Claire 10 60 5 Provoc 5 NoCamo
+Carl 10 60 5 NoProvoc 5 Camo
+Diane 5 30 2 Provoc 5 NoCamo
+Diego 5 30 2 NoProvoc 5 Camo
+Eva 2 20 1 Provoc 5 NoCamo
+Eric 2 20 1 NoProvoc 5 Camo
+Flora 10 60 5 Provoc 5 NoCamo
+Florian 10 60 5 NoProvoc 5 Camo
+Gabrielle 5 30 2 Provoc 5 NoCamo
+Gaspard 5 30 2 NoProvoc 5 Camo
+Hope 2 20 1 Provoc 5 NoCamo
+Henry 2 20 1 NoProvoc 5 Camo
+Isabelle 10 60 5 Provoc 5 NoCamo
+Izac 10 60 5 NoProvoc 5 Camo
+Josephine 5 30 2 Provoc 5 NoCamo
+Jean 5 30 2 NoProvoc 5 Camo
+Kathy 2 20 1 Provoc 5 NoCamo
+Keyvan 2 20 1 NoProvoc 5 Camo
+Laura 10 60 5 Provoc 5 NoCamo
+Leo 10 60 5 NoProvoc 5 Camo
+Marie 5 30 2 Provoc 5 NoCamo
+Mickael 5 30 2 NoProvoc 5 Camo
+Nathalie 2 20 1 Provoc 5 NoCamo
+Nathan 2 20 1 NoProvoc 5 Camo
+Ophelie 10 60 5 Provoc 5 NoCamo
+Olaf 10 60 5 NoProvoc 5 Camo
+Peneloppe 5 30 2 Provoc 5 NoCamo
+Patrick 5 30 2 NoProvoc 5 Camo
+Rachel 2 20 1 Provoc 5 NoCamo
+Raphael 2 20 1 NoProvoc 5 Camo
+Sandrine 10 60 5 Provoc 5 NoCamo
+Sylvain 10 60 5 NoProvoc 5 Camo

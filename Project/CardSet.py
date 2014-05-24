@@ -27,7 +27,7 @@ class CardSet :
                     cardSet.append(int (word))
                 else:
                     cardSet.append(word)
-            listServant.append(Card(cardSet[0], cardSet[2], cardSet[1], cardSet[3]))
+            listServant.append(Card(cardSet[0], cardSet[2], cardSet[1], cardSet[3], cardSet[4], cardSet[5], cardSet[6]))
         file.close
-        listCard = listServant
-        return listServant
+        CardSet.listCard = listServant
+

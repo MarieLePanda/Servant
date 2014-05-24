@@ -24,6 +24,8 @@ class Player :
         self.health = 3
         self.mana = 1
         self.field = []
+        self.provocField = []
+        self.camoField = []
 
 
 
@@ -91,7 +93,7 @@ class Player :
         print("\nServiteur sur le terrain")
         print(self.name, " :", self.health)
         for cardPlayer in self.field :
-            cardPlayer.print(False)
+            cardPlayer.print()
         print(enemy.name, " :", enemy.health)
         for cardEnemy in enemy.field :
             cardEnemy.print(False)
@@ -107,6 +109,7 @@ class Player :
         print("\nListe des servants sur le terrain")
         for cardPlayer in self.field :
            cardPlayer.print(False)
+
         print("\nListe de vos serviteur sur le terrain qui peuvent attaquer")
         for cardPlayer in servantCanAttack :
            cardPlayer.print(False)
@@ -115,6 +118,7 @@ class Player :
            for cardPlayer in servantCanAttack :
                if nameServantAttack == cardPlayer.name.lower() :
                    choice = True
+                   cardPlayer.camo = "Nocamo"
                    servantAttack = cardPlayer
                    servantCanAttack.remove(cardPlayer)
         print("=======================FIN PHASE SELECTION ATTAQUANT=======================")
@@ -129,7 +133,18 @@ class Player :
         print("=======================DEBUT PHASE SELECTION CIBLE=======================")
         print("\nListe des serviteur adverse sur le terrain")
         for cardEnemy in enemy.field :
-            cardEnemy.print(False)
+            if cardEnemy not in enemy.camoField :
+                cardEnemy.print(False)
+        if len(enemy.provocField) > 0:
+            print("Les serviteur ennemie vous provoque\n")
+            return self.choseProvocServant(enemy)
+        else:
+            return self.chosePlayerOrServant(enemy)
+
+        print("=======================FIN PHASE SELECTION CIBLE=======================")
+
+
+    def chosePlayerOrServant(self, enemy):
         print("\nVoulez vous attaquer le joueur ennemie ou ses serviteurs ?")
         while True :
             target = input("Joueur ou serviteur ?\n").lower()
@@ -146,4 +161,12 @@ class Player :
                         if nameServantTarget == cardEnemy.name.lower() :
                             return cardEnemy
 
-        print("=======================FIN PHASE SELECTION CIBLE=======================")
+
+    def choseProvocServant(self, enemy):
+        while True:
+            for cardEnemy in enemy.provocField :
+                cardEnemy.print(False)
+            nameServantTarget = input("Choisisez le nom du serviteur a attaquer\n").lower()
+            for cardEnemy in enemy.provocField :
+                if nameServantTarget == cardEnemy.name.lower() :
+                    return cardEnemy

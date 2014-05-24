@@ -13,43 +13,28 @@ import socket
 from Card import Card
 from Player import Player
 from CardSet import CardSet
-
+from Field import Field
 
 def main():
 
-    connectionServeur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    connectionServeur.connect(("localhost", 12800))
-    listCard = CardSet.loadCardSet("C:\\Users\\MKSJ\\Documents\\GitHub\\Servant\\Exo 2\\cardSet")
-    print("Connexion reussite avec le serveur")
-    playerOne = Player("koala", listCard)
+    CardSet.loadCardSet("C:\\Users\\lug13995\\Desktop\\ESGI\\Portable Python 3.2.5.1\\Servant\\Exo 2\\CardSet")
+    playerOne = Player("koala", CardSet.listCard)
+    playerTwo = Player("panda", CardSet.listCard)
+
     i = 1
     winner = None
     while winner == None :
         if i % 2 == 0 :
-            winner = youPlay(playerOne, connectionServeur)
+            winner = Field.playTurn(playerOne, playerTwo)
         else :
-            winner =  playTrun(playerOne, connectionServeur)
+            winner = Field.playTurn(playerTwo, playerOne)
         i += 1
     playerOne.toString()
     playerTwo.toString()
     print("Vainqueur : ", winner.name)
 
-    connectionClient.close()
-    connection.close()
 
 
-
-
-def playTrun(player, connectionServeur):
-    """The player can send a servant in the field and attack the enemy player or servants"""
-    playerName = connectionServeur.recv(1024).decode()
-    print("=======================DEBUT PHASE DE JEU JOUEUR ", playerName ,"=======================")
-    choice = False
-    winner = None
-    toStringPlayer = connectionServeur.recv(1024).decode()
-    print(toStringPlayer)
-    print(connectionServeur.recv(1024).decode())
-    input()
 
 if __name__ == '__main__':
     main()

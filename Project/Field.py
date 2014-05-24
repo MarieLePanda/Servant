@@ -14,14 +14,20 @@ from Card import Card
 from Player import Player
 from CardSet import CardSet
 
-class FieldNetwork :
+class Field :
 
-    def playTrun(player, enemy) :
+    def playTurn(player, enemy) :
         """The player can send a servant in the field and attack the enemy player or servants"""
 
         choice = False
         winner = None
         player.toString()
+        enemy.provocField = Field.loadProvocField(enemy)
+        enemy.camoField = Field.loadCamoField(enemy)
+        for card in player.field:
+            if card not in player.camoField :
+                card.print()
+
 
     #Test si le joueur peut attaquer
 
@@ -44,7 +50,6 @@ class FieldNetwork :
         #Selection de la cible
                 if 0 < len(enemy.field) :
                     player.displayField(enemy)
-                    print("\nVoulez vous attaquer le joueur ennemie ou ses servant ?")
                     target = player.selectedTarget(enemy)
                     if type(target) == Player :
                         servantAttack.newFight(enemy = target)
@@ -61,5 +66,20 @@ class FieldNetwork :
 
         player.deploy()
         player.setMana(player.mana + 1)
+        Player.pickUp
         player.pickUp(CardSet.listCard)
         return winner
+
+    def loadProvocField(player):
+        provocField = []
+        for card in player.field:
+            if card.provoc == "Provoc":
+                provocField.append(card)
+        return provocField
+
+    def loadCamoField(player):
+        camoField = []
+        for card in player.field:
+            if card.camo == "Camo":
+                camoField.append(card)
+        return camoField
