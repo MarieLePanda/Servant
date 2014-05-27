@@ -48,7 +48,7 @@ class Field :
                 servantAttack = player.selectedStricker(servantCanAttack)
 
         #Selection de la cible
-                if 0 < len(enemy.field) :
+                if 0 < len(enemy.field) and len(enemy.field) > len(enemy.camoField) :
                     player.displayField(enemy)
                     target = player.selectedTarget(enemy)
                     if type(target) == Player :

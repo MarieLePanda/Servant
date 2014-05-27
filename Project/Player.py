@@ -158,7 +158,7 @@ class Player :
                 while True:
                     nameServantTarget = input("Choisisez le nom du serviteur a attaquer\n").lower()
                     for cardEnemy in enemy.field :
-                        if nameServantTarget == cardEnemy.name.lower() :
+                        if nameServantTarget == cardEnemy.name.lower() and cardEnemy not in enemy.camoField :
                             return cardEnemy
 
 
