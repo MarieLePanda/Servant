@@ -13,6 +13,7 @@ import socket
 from Card import Card
 from Player import Player
 from CardSet import CardSet
+from Power import Power
 
 class Field :
 
@@ -64,9 +65,9 @@ class Field :
                     print("VICTOIRE")
                     return player
 
-        player.deploy()
+        player.deploy(enemy)
         player.setMana(player.mana + 1)
-        Player.pickUp
+        #Player.pickUp
         player.pickUp(CardSet.listCard)
         return winner
 

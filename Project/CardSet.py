@@ -10,6 +10,7 @@
 #-------------------------------------------------------------------------------
 from Card import Card
 from Player import Player
+from Power import Power
 
 class CardSet :
 
@@ -27,7 +28,9 @@ class CardSet :
                     cardSet.append(int (word))
                 else:
                     cardSet.append(word)
-            listServant.append(Card(cardSet[0], cardSet[2], cardSet[1], cardSet[3], cardSet[4], cardSet[5], cardSet[6], cardSet[7]))
+            listServant.append(Card(cardSet[0], cardSet[2], cardSet[1], cardSet[3], cardSet[4], cardSet[5], cardSet[6], cardSet[7],
+                                    Power(cardSet[8], cardSet[9])
+                                    ))
         file.close
         CardSet.listCard = listServant
 

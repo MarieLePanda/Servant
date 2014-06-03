@@ -12,7 +12,7 @@
 
 class Card :
 
-    def __init__(self, name, health, attack, cost, provoc, shield, camo, element) :
+    def __init__(self, name, health, attack, cost, provoc, shield, camo, element, power) :
         """Create card"""
 
         self.name = name
@@ -23,14 +23,22 @@ class Card :
         self.shield = shield
         self.camo = camo
         self.element = element
+        self.power = power
+
+
 
     def print(self, displayMana = True) :
         """Display card"""
 
         if(displayMana):
-            print(self.name ,  "(", self.element, ") ( Attaque : " , self.attack , "Sante : " , self.health , "/ bouclier : ", self.shield, ") Mana : ", self.cost, self.isProvoc(), self.isCamo())
+            print(self.name ,  "(", self.element, ") ( Attaque : " , self.attack , "Sante : " , self.health , "/ bouclier : ", self.shield, ") Mana : ",
+                    self.cost, "\n", self.isProvoc(), self.isCamo(),
+                    " Pouvoir actif : ", self.power.name, " : ", self.power.name)
+
         else:
-            print(self.name , "(", self.element, ") ( Attaque : " , self.attack , "Sante : " , self.health , "/ bouclier : ", self.shield, ")", self.isProvoc(), self.isCamo())
+            print(self.name , "(", self.element, ") ( Attaque : " , self.attack , "Sante : " , self.health , "/ bouclier : ", self.shield, ")\n",
+                    self.isProvoc(), self.isCamo(),
+                    " Pouvoir actif : ", self.power.name )
 
 
 
@@ -64,7 +72,7 @@ class Card :
         if enemy == None :
             print(self.name, " (", self.attack, "/", self.health, ") attaque ", card.name, " (", card.attack, "/", card.health, ")")
             if card.shield > 0 :
-                print("Le bouclier de ",  card.name, " absorde les dÃ©gats")
+                print("Le bouclier de ",  card.name, " absorde les degats")
                 card.shield -= self.calcHavoc(card.element)
             else :
                  card.health -= self.calcHavoc(card.element)
@@ -74,7 +82,7 @@ class Card :
                 card.shield = 0
 
             if self.shield > 0 :
-                print("Le bouclier de ",  self.name, " absorde les dÃ©gats")
+                print("Le bouclier de ",  self.name, " absorde les degats")
                 self.shield -= card.calcHavoc(self.element)
             else :
                  self.health -= card.calcHavoc(self.element)
@@ -139,3 +147,4 @@ class Card :
             return self.attack * 2
         else :
             return self.attack
+

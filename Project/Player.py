@@ -9,6 +9,8 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 import random
+from Power import Power
+
 
 class Player :
 
@@ -16,10 +18,11 @@ class Player :
         """Create player"""
 
         self.hand = []
+        self.deck = deck
         while len(self.hand) < 4 :
-            numCard = random.randint(0, len(deck) - 1)
-            self.hand.append(deck[numCard])
-            deck.remove(deck[numCard])
+            numCard = random.randint(0, len(self.deck) - 1)
+            self.hand.append(self.deck[numCard])
+            self.deck.remove(self.deck[numCard])
         self.name = name
         self.health = 3
         self.mana = 1
@@ -46,7 +49,7 @@ class Player :
 
 
 
-    def deploy(self) :
+    def deploy(self, enemy) :
         """Sends a servant on the field"""
 
         print("=======================DEBUT PHASE ENVOIE SUR TERRAIN=======================")
@@ -66,6 +69,8 @@ class Player :
                         self.field.append(card)
                         self.hand.remove(card)
                         self.setMana(self.mana - card.cost)
+                        Power.attackServant(player, enemy, card)
+                        Power.attackServantMultiple(enemy, card)
                     elif nameServantGoToField == "0" :
                         choice = True
         else :

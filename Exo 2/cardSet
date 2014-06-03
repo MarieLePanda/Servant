@@ -1,36 +1,36 @@
-Amelie 5 30 2 Provoc 5 NoCamo Foudre
-Adam 5 30 2 NoProvoc 5 Camo Eau
-Beatrice 2 20 1 Provoc 5 NoCamo Feu
-Brice 2 20 1 NoProvoc 5 Camo Foudre
-Claire 10 60 5 Provoc 5 NoCamo Eau
-Carl 10 60 5 NoProvoc 5 Camo Feu
-Diane 5 30 2 Provoc 5 NoCamo Foudre
-Diego 5 30 2 NoProvoc 5 Camo Eau
-Eva 2 20 1 Provoc 5 NoCamo Feu
-Eric 2 20 1 NoProvoc 5 Camo Foudre
-Flora 10 60 5 Provoc 5 NoCamo Eau
-Florian 10 60 5 NoProvoc 5 Camo Feu
-Gabrielle 5 30 2 Provoc 5 NoCamo Foudre
-Gaspard 5 30 2 NoProvoc 5 Camo Eau
-Hope 2 20 1 Provoc 5 NoCamo Feu
-Henry 2 20 1 NoProvoc 5 Camo Foudre
-Isabelle 10 60 5 Provoc 5 NoCamo Eau
-Izac 10 60 5 NoProvoc 5 Camo Feu
-Josephine 5 30 2 Provoc 5 NoCamo Foudre
-Jean 5 30 2 NoProvoc 5 Camo Eau
-Kathy 2 20 1 Provoc 5 NoCamo Feu
-Keyvan 2 20 1 NoProvoc 5 Camo Foudre
-Laura 10 60 5 Provoc 5 NoCamo Eau
-Leo 10 60 5 NoProvoc 5 Camo Feu
-Marie 5 30 2 Provoc 5 NoCamo Foudre
-Mickael 5 30 2 NoProvoc 5 Camo Eau
-Nathalie 2 20 1 Provoc 5 NoCamo Feu
-Nathan 2 20 1 NoProvoc 5 Camo Foudre
-Ophelie 10 60 5 Provoc 5 NoCamo Eau
-Olaf 10 60 5 NoProvoc 5 Camo Feu
-Peneloppe 5 30 2 Provoc 5 NoCamo Foudre
-Patrick 5 30 2 NoProvoc 5 Camo Eau
-Rachel 2 20 1 Provoc 5 NoCamo Feu
-Raphael 2 20 1 NoProvoc 5 Camo Foudre
-Sandrine 10 60 5 Provoc 5 NoCamo Eau
-Sylvain 10 60 5 NoProvoc 5 Camo Feu
+Amelie 5 30 2 Provoc 5 NoCamo Foudre Invoquation 1
+Adam 5 30 2 NoProvoc 5 Camo Eau AttaqueSolo 3
+Beatrice 2 20 1 Provoc 5 NoCamo Feu AttaqueMultiple 1
+Brice 2 20 1 NoProvoc 5 Camo Foudre AjoutPvSolo 3
+Claire 10 60 5 Provoc 5 NoCamo Eau AjoutPvMultiple 1
+Carl 10 60 5 NoProvoc 5 Camo Feu RedonnePvSolo 3
+Diane 5 30 2 Provoc 5 NoCamo Foudre RedonnePvMultiple 1
+Diego 5 30 2 NoProvoc 5 Camo Eau EnlevePropriete 1
+Eva 2 20 1 Provoc 5 NoCamo Feu AjoutePropriete 1
+Eric 2 20 1 NoProvoc 5 Camo Foudre PiocheCarte 1
+Flora 10 60 5 Provoc 5 NoCamo Eau DefauseCarte 1
+Florian 10 60 5 NoProvoc 5 Camo Feu Invoquation 1
+Gabrielle 5 30 2 Provoc 5 NoCamo Foudre AttaqueSolo 3
+Gaspard 5 30 2 NoProvoc 5 Camo Eau AttaqueMultiple 1
+Hope 2 20 1 Provoc 5 NoCamo Feu AjoutPvSolo 3
+Henry 2 20 1 NoProvoc 5 Camo Foudre AjoutPvMultiple 1
+Isabelle 10 60 5 Provoc 5 NoCamo Eau RedonnePvSolo 3
+Izac 10 60 5 NoProvoc 5 Camo Feu EnlevePropriete 1
+Josephine 5 30 2 Provoc 5 NoCamo Foudre AjoutePropriete 1
+Jean 5 30 2 NoProvoc 5 Camo Eau PiocheCarte 1
+Kathy 2 20 1 Provoc 5 NoCamo Feu DefauseCarte 1
+Keyvan 2 20 1 NoProvoc 5 Camo Foudre _ 0
+Laura 10 60 5 Provoc 5 NoCamo Eau _ 0
+Leo 10 60 5 NoProvoc 5 Camo Feu _ 0
+Marie 5 30 2 Provoc 5 NoCamo Foudre _ 0
+Mickael 5 30 2 NoProvoc 5 Camo Eau _ 0
+Nathalie 2 20 1 Provoc 5 NoCamo Feu _ 0
+Nathan 2 20 1 NoProvoc 5 Camo Foudre _ 0
+Ophelie 10 60 5 Provoc 5 NoCamo Eau _ 0
+Olaf 10 60 5 NoProvoc 5 Camo Feu _ 0
+Peneloppe 5 30 2 Provoc 5 NoCamo Foudre _ 0
+Patrick 5 30 2 NoProvoc 5 Camo Eau _ 0
+Rachel 2 20 1 Provoc 5 NoCamo Feu _ 0
+Raphael 2 20 1 NoProvoc 5 Camo Foudre _ 0
+Sandrine 10 60 5 Provoc 5 NoCamo Eau _ 0
+Sylvain 10 60 5 NoProvoc 5 Camo Feu _ 0
