@@ -17,7 +17,7 @@ from Field import Field
 
 def main():
 
-    CardSet.loadCardSet("C:\\Users\\lug13995\\Desktop\\ESGI\\Portable Python 3.2.5.1\\Servant\\Exo 2\\CardSet")
+    CardSet.loadCardSet("CardSet")
     playerOne = Player("koala", CardSet.listCard)
     playerTwo = Player("panda", CardSet.listCard)
 
