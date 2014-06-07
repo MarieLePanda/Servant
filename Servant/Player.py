@@ -54,15 +54,15 @@ class Player :
         """Sends a servant on the field"""
 
         print("=======================DEBUT PHASE ENVOIE SUR TERRAIN=======================")
-        time.sleep(8)
+        time.sleep(2)
         self.toString()
-        time.sleep(4)
+        time.sleep(2)
         choice = False
         print("\nListe de vos serviteur dans votre main")
         for cardPlayer in self.hand :
             cardPlayer.print()
             time.sleep(1)
-        time.sleep(4)
+        time.sleep(2)
         if len(self.hand) > 0 :
             print("\nQuel serviteur voulez vous envoyer sur le terrain ?")
             nameServantGoToField = ""
@@ -82,9 +82,9 @@ class Player :
             Power.addHp(self, enemy, card)
         else :
             print("Vous n'avez aucune carte dans votre main")
-        time.sleep(4)
+        time.sleep(2)
         print("=======================FIN PHASE ENVOIE SUR TERRAIN=======================")
-        time.sleep(4)
+        time.sleep(2)
 
 
 
@@ -121,19 +121,19 @@ class Player :
         """Returns the servant selected to attack"""
 
         print("=======================DEBUT PHASE SELECTION ATTAQUANT=======================")
-        time.sleep(8)
+        time.sleep(2)
         choice = False
         print("\nListe des servants sur le terrain")
         for cardPlayer in self.field :
             cardPlayer.print(False)
             time.sleep(1)
-        time.sleep(3)
+        time.sleep(2)
 
         print("\nListe de vos serviteur sur le terrain qui peuvent attaquer")
         for cardPlayer in servantCanAttack :
             cardPlayer.print(False)
             time.sleep(1)
-        time.sleep(3)
+        time.sleep(2)
         while choice == False :
             nameServantAttack = input("Choisisez le nom du serviteur qui va attaquer\n").lower()
             for cardPlayer in servantCanAttack :
@@ -143,7 +143,7 @@ class Player :
                     servantAttack = cardPlayer
                     servantCanAttack.remove(cardPlayer)
         print("=======================FIN PHASE SELECTION ATTAQUANT=======================")
-        time.sleep(4)
+        time.sleep(2)
 
         return servantAttack
 
@@ -153,13 +153,13 @@ class Player :
         """Returns the enemy servant targeted for attack"""
 
         print("=======================DEBUT PHASE SELECTION CIBLE=======================")
-        time.sleep(8)
+        time.sleep(2)
         print("\nListe des serviteur adverse sur le terrain")
         for cardEnemy in enemy.field :
             if cardEnemy not in enemy.camoField :
                 cardEnemy.print(False)
                 time.sleep(1)
-        time.sleep(3)
+        time.sleep(2)
         if len(enemy.provocField) > 0:
             print("Les serviteur ennemie vous provoque\n")
             return self.choseProvocServant(enemy)
@@ -167,7 +167,7 @@ class Player :
             return self.chosePlayerOrServant(enemy)
 
         print("=======================FIN PHASE SELECTION CIBLE=======================")
-        time.sleep(4)
+        time.sleep(2)
 
 
     def chosePlayerOrServant(self, enemy, power = False):
@@ -203,7 +203,7 @@ class Player :
             for cardEnemy in enemy.provocField :
                 cardEnemy.print(False)
                 time.sleep(1)
-            time.sleep(3)
+            time.sleep(2)
             nameServantTarget = input("Choisisez le nom du serviteur a attaquer\n").lower()
             for cardEnemy in enemy.provocField :
                 if nameServantTarget == cardEnemy.name.lower() :

@@ -15,36 +15,44 @@ import time
 class Power :
 
     def __init__(self, name, value) :
+        
         self.name = name
         self.value = value
 
     def invokServant(player, enemy, card) :
-        if card.power.name == "Invoquer" :
+        
+        if card.power.name == "Invoquation" :
             print(player.name, " Peux invoquer un serviteur")
             player.deploy(enemy)
 
 
     def attackServant(player, enemy, card) :
+        
         if card.power.name == "AttaqueSolo" :
             print(card.name, " peut attaquer")
+            
             if 0 < len(enemy.field) and len(enemy.field) > len(enemy.camoField) :
-                    player.displayField(enemy)
-            cardEnemy = player.chosePlayerOrServant(enemy, True)
-            print(cardEnemy.name, " Prend ", card.power.value, " de degat")
-            if cardEnemy.shield > 0 :
-                cardEnemy.shield -= card.power.value
+                player.displayField(enemy)
+                cardEnemy = player.chosePlayerOrServant(enemy, True)
+                print(cardEnemy.name, " Prend ", card.power.value, " de degat")
+                if cardEnemy.shield > 0 :
+                    cardEnemy.shield -= card.power.value
+                else :
+                    cardEnemy.health -= card.power.value
+                if cardEnemy.shield < 0 :
+                    cardEnemy.health += card.power.value
+                    cardEnemy.shield = 0
+                if cardEnemy.health <= 0 :
+                    print(cardEnemy.name, " est hors jeu")
+                    Power.invokServant(enemy, player, cardEnemy)
+                else :
+                    print("Il reste ", cardEnemy.health, " pv a ", cardEnemy.name)
             else :
-                cardEnemy.health -= card.power.value
-            if cardEnemy.shield < 0 :
-                cardEnemy.health += card.power.value
-                cardEnemy.shield = 0
-            if cardEnemy.health <= 0 :
-                print(cardEnemy.name, " est hors jeu")
-                Power.invokServant(enemy, player, cardEnemy)
-            else :
-                print("Il reste ", cardEnemy.health, " pv a ", cardEnemy.name)
+                print("Personne a attaquer")
+
 
     def attackServantMultiple(enemy, card) :
+        
         if card.power.name == "AttaqueMultiple" :
             print(card.name, " inflige des degat a tous les ennemies")
             for cardEnemy in enemy.field :
@@ -53,7 +61,7 @@ class Power :
                     cardEnemy.shield -= card.power.value
                 else :
                     cardEnemy.health -= card.power.value
-                if cardEnemy.shield > 0 :
+                if cardEnemy.shield < 0 :
                     cardEnemy.health += card.power.value
                     cardEnemy.shield = 0
                 if cardEnemy.health <= 0 :
@@ -64,7 +72,20 @@ class Power :
 
 
     def addHpMax(player, enemy, card) :
-        print("Un servant augmente ses pv max")
+        
+        if card.power.name == "AjoutPvSolo" :
+            print(card.name, " peut augmenter la sante max d'un serviteur")
+            for cardPlayer in player.field :
+                cardPlayer.print(False)
+                time.sleep(1)
+            time.sleep(2)
+            while(True) :
+                nameServantTarget = input("Choisisez le nom du serviteur a booster\n").lower()
+                for cardPlayer in player.field :
+                    if nameServantTarget == cardPlayer.name.lower() :
+                        cardPlayer.healthMax += card.power.value
+                        print(cardPlayer.name, " a vu sa sante augmente")
+                        return
 
 
     def addHpMaxMultiple(player, enemy, card) :
