@@ -9,6 +9,7 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 import random
+import time
 from Power import Power
 
 
@@ -53,11 +54,15 @@ class Player :
         """Sends a servant on the field"""
 
         print("=======================DEBUT PHASE ENVOIE SUR TERRAIN=======================")
+        time.sleep(8)
         self.toString()
+        time.sleep(4)
         choice = False
         print("\nListe de vos serviteur dans votre main")
         for cardPlayer in self.hand :
             cardPlayer.print()
+            time.sleep(1)
+        time.sleep(4)
         if len(self.hand) > 0 :
             print("\nQuel serviteur voulez vous envoyer sur le terrain ?")
             nameServantGoToField = ""
@@ -73,9 +78,13 @@ class Player :
                         Power.attackServantMultiple(enemy, card)
                     elif nameServantGoToField == "0" :
                         choice = True
+            Power.addHpMax(self, enemy, card)
+            Power.addHp(self, enemy, card)
         else :
             print("Vous n'avez aucune carte dans votre main")
+        time.sleep(4)
         print("=======================FIN PHASE ENVOIE SUR TERRAIN=======================")
+        time.sleep(4)
 
 
 
@@ -99,9 +108,11 @@ class Player :
         print(self.name, " :", self.health)
         for cardPlayer in self.field :
             cardPlayer.print()
+            time.sleep(1)
         print(enemy.name, " :", enemy.health)
         for cardEnemy in enemy.field :
             cardEnemy.print(False)
+            time.sleep(1)
         print("------------------------------------")
 
 
@@ -110,23 +121,29 @@ class Player :
         """Returns the servant selected to attack"""
 
         print("=======================DEBUT PHASE SELECTION ATTAQUANT=======================")
+        time.sleep(8)
         choice = False
         print("\nListe des servants sur le terrain")
         for cardPlayer in self.field :
-           cardPlayer.print(False)
+            cardPlayer.print(False)
+            time.sleep(1)
+        time.sleep(3)
 
         print("\nListe de vos serviteur sur le terrain qui peuvent attaquer")
         for cardPlayer in servantCanAttack :
-           cardPlayer.print(False)
+            cardPlayer.print(False)
+            time.sleep(1)
+        time.sleep(3)
         while choice == False :
-           nameServantAttack = input("Choisisez le nom du serviteur qui va attaquer\n").lower()
-           for cardPlayer in servantCanAttack :
-               if nameServantAttack == cardPlayer.name.lower() :
-                   choice = True
-                   cardPlayer.camo = "Nocamo"
-                   servantAttack = cardPlayer
-                   servantCanAttack.remove(cardPlayer)
+            nameServantAttack = input("Choisisez le nom du serviteur qui va attaquer\n").lower()
+            for cardPlayer in servantCanAttack :
+                if nameServantAttack == cardPlayer.name.lower() :
+                    choice = True
+                    cardPlayer.camo = "Nocamo"
+                    servantAttack = cardPlayer
+                    servantCanAttack.remove(cardPlayer)
         print("=======================FIN PHASE SELECTION ATTAQUANT=======================")
+        time.sleep(4)
 
         return servantAttack
 
@@ -136,10 +153,13 @@ class Player :
         """Returns the enemy servant targeted for attack"""
 
         print("=======================DEBUT PHASE SELECTION CIBLE=======================")
+        time.sleep(8)
         print("\nListe des serviteur adverse sur le terrain")
         for cardEnemy in enemy.field :
             if cardEnemy not in enemy.camoField :
                 cardEnemy.print(False)
+                time.sleep(1)
+        time.sleep(3)
         if len(enemy.provocField) > 0:
             print("Les serviteur ennemie vous provoque\n")
             return self.choseProvocServant(enemy)
@@ -147,12 +167,13 @@ class Player :
             return self.chosePlayerOrServant(enemy)
 
         print("=======================FIN PHASE SELECTION CIBLE=======================")
+        time.sleep(4)
 
 
-    def chosePlayerOrServant(self, enemy, choice = True):
+    def chosePlayerOrServant(self, enemy, power = False):
         print("\nVoulez vous attaquer le joueur ennemie ou ses serviteurs ?")
         while True :
-            if choice == True :
+            if power == False :
                 target = input("Joueur ou serviteur ?\n").lower()
                 if target == "joueur" :
                     #choiceTarget = True
@@ -181,6 +202,8 @@ class Player :
         while True:
             for cardEnemy in enemy.provocField :
                 cardEnemy.print(False)
+                time.sleep(1)
+            time.sleep(3)
             nameServantTarget = input("Choisisez le nom du serviteur a attaquer\n").lower()
             for cardEnemy in enemy.provocField :
                 if nameServantTarget == cardEnemy.name.lower() :
