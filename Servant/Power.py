@@ -89,29 +89,66 @@ class Power :
 
 
     def addHpMaxMultiple(player, enemy, card) :
-        print("plusieurs servant augmentent leur pv max")
+      
+        if card.power.name == "AjoutPvMultiple" :
+            print(card.name, " peut augmenter la sante max de tous les serviteurs")
+            for cardPlayer in player.field :
+                cardPlayer.print(False)
+                time.sleep(1)
+            time.sleep(2)
+            for cardPlayer in player.field :
+                cardPlayer.healthMax += card.power.value
+                print(cardPlayer.name, " a vu sa sante augmente")
+
 
 
     def addHp(player, enemy, card) :
-        print("Un servant regagne des pv")
+        if card.power.name == "RedonnePvSolo" :
+            print(card.name, " peut soigner un serviteur")
+            for cardPlayer in player.field :
+                cardPlayer.print(False)
+                time.sleep(1)
+            time.sleep(2)
+            while(True) :
+                nameServantTarget = input("Choisisez le nom du serviteur a soigner\n").lower()
+                for cardPlayer in player.field :
+                    if nameServantTarget == cardPlayer.name.lower() :
+                        cardPlayer.health += card.power.value
+                        print(cardPlayer.name, " a ete soigne")
+                        if cardPlayer.health > cardPlayer.healthMax :
+                            cardPlayer.health = cardPlayer.healthMax
+                        return
 
 
     def addHpMultiple(player, enemy, card) :
-        print("Plusieur servant regagnent des pv")
+        
+        if card.power.name == "RedonnePvMultiple" :
+            print(card.name, " soigne tous les serviteurs")
+            for cardPlayer in player.field :
+                cardPlayer.print(False)
+                time.sleep(1)
+            time.sleep(2)
+            for cardPlayer in player.field :
+                cardPlayer.health += card.power.value
+                print(cardPlayer.name, " a ete soigne")
+                if cardPlayer.health > cardPlayer.healthMax :
+                    cardPlayer.health = cardPlayer.healthMax
 
 
 #A placer encore
     def newPropritie(player, card) :
-        print("Un servant à une nouvelle propriete")
+        print("Un serviteur gange une propriete")
 
-
+#A placer encore
     def losePropritie(player, card) :
         print("Un servant perd un propriete")
 
 
-    def pickupCard(player) :
-        print("Un joueur pioche une carte")
+    def pickupCard(player, card) :
+        if card.power.name == "PiocheCarte" :
+            print(card.name, " permet de piocher une carte")
+            player.pickUp(player.deck)
 
-
+#A placer encore
     def dropCard(player) :
         print("Un joueur defause une carte")

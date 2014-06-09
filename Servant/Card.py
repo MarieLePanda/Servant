@@ -52,7 +52,7 @@ class Card :
         if card.shield > 0 :
             card.shield -= self.attack
         else :
-             card.health += self.attack
+            card.health += self.attack
         if card.shield > 0 :
             card.health += card.shield
             card.shield = 0
@@ -60,7 +60,7 @@ class Card :
         if self.shield > 0 :
             self.shield -= card.attack
         else :
-             self.health += card.attack
+            self.health += card.attack
         if self.shield > 0 :
             self.health += self.shield
             self.shield = 0
@@ -80,7 +80,7 @@ class Card :
                 time.sleep(2)
                 card.shield -= self.calcHavoc(card.element)
             else :
-                 card.health -= self.calcHavoc(card.element)
+                card.health -= self.calcHavoc(card.element)
             if card.shield < 0 :
                 print("Le bouclier de ", card.name,"a cede")
                 time.sleep(2)
@@ -92,7 +92,7 @@ class Card :
                 time.sleep(2)
                 self.shield -= card.calcHavoc(self.element)
             else :
-                 self.health -= card.calcHavoc(self.element)
+                self.health -= card.calcHavoc(self.element)
 
             if self.shield < 0 :
                 print("Le bouclier de ",  self.name,"a cede")
@@ -102,6 +102,7 @@ class Card :
 
             if self.health <= 0 :
                 print(self.name, " est hors jeu")
+                Power.invokServant(player, enemy, self)
                 time.sleep(2)
             else :
                 print("Il reste ", self.health, " pv a ", self.name)

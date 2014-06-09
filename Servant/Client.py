@@ -13,7 +13,7 @@ import socket
 import sys
 import time
 
-from Card import Card
+
 from Player import Player
 from CardSet import CardSet
 from Field import Field

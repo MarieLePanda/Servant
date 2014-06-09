@@ -76,13 +76,15 @@ class Player :
                         self.setMana(self.mana - card.cost)
                         Power.attackServant(self, enemy, card)
                         Power.attackServantMultiple(enemy, card)
+                        Power.addHpMax(self, enemy, card)
+                        Power.addHpMaxMultiple(self, enemy, card)
+                        Power.pickupCard(self, cardPlayer)
                     elif nameServantGoToField == "0" :
                         choice = True
-            Power.addHpMax(self, enemy, card)
-            Power.addHp(self, enemy, card)
+            
         else :
             print("Vous n'avez aucune carte dans votre main")
-        time.sleep(2)
+        time.sleep(2)            
         print("=======================FIN PHASE ENVOIE SUR TERRAIN=======================")
         time.sleep(2)
 
