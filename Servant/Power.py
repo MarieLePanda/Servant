@@ -137,7 +137,7 @@ class Power :
 
 #A placer encore
     def newPropritie(player, card) :
-        print("Un serviteur gange une propriete")
+        print("Un serviteur gagne une propriete")
 
 #A placer encore
     def losePropritie(player, card) :
@@ -149,6 +149,7 @@ class Power :
             print(card.name, " permet de piocher une carte")
             player.pickUp(player.deck)
 
-#A placer encore
-    def dropCard(player) :
-        print("Un joueur defause une carte")
+
+    def dropCard(card, player) :
+        if card.power.name == "DefauseCarte" :
+            player.needDropCard = True

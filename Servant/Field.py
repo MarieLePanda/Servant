@@ -20,7 +20,9 @@ class Field :
 
     def playTurn(player, enemy) :
         """The player can send a servant in the field and attack the enemy player or servants"""
-
+        
+        if(player.needDropCard) :
+            player.dropCard()
         choice = False
         winner = None
         player.toString()

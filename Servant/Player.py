@@ -30,6 +30,7 @@ class Player :
         self.field = []
         self.provocField = []
         self.camoField = []
+        self.needDropCard = False
 
 
 
@@ -79,6 +80,7 @@ class Player :
                         Power.addHpMax(self, enemy, card)
                         Power.addHpMaxMultiple(self, enemy, card)
                         Power.pickupCard(self, cardPlayer)
+                        Power.dropCard(card, enemy)
                     elif nameServantGoToField == "0" :
                         choice = True
             
@@ -210,3 +212,18 @@ class Player :
             for cardEnemy in enemy.provocField :
                 if nameServantTarget == cardEnemy.name.lower() :
                     return cardEnemy
+                
+    
+    def dropCard(self):
+        print("Vous devez defausez une carte\n")
+        choose = True
+        while(choose) :
+            for card in self.hand :
+                card.print(False)
+                time.sleep(1)
+            nameServantTarget = input("Choisisez le nom du serviteur defausez\n").lower()
+            for card in self.hand :
+                if nameServantTarget == card.name.lower() :
+                    self.hand.remove(card)
+                    choose = False
+                    self.needDropCard = False
