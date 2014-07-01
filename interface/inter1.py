@@ -1,4 +1,6 @@
-from Client import *
+import pygame
+from pygame.locals import *
+
 
 # initialisation de tous les modules pygame
 pygame.init()
@@ -29,7 +31,14 @@ cartes = [
 			{"carte" : pygame.image.load("carte2.png").convert_alpha(), "attack" : 9, "health" : 5, "attackImg" : pygame.image.load("9.png").convert_alpha(), "healthImg" : pygame.image.load("5.png").convert_alpha(), "attackPosx" : 0, "attackPosy" : 0, "healthPosx" : 0, "healthPosy" : 0, "posx" : 0, "posy" : 0}, 
 			{"carte" : pygame.image.load("carte2.png").convert_alpha(), "attack" : 9, "health" : 5, "attackImg" : pygame.image.load("9.png").convert_alpha(), "healthImg" : pygame.image.load("5.png").convert_alpha(), "attackPosx" : 0, "attackPosy" : 0, "healthPosx" : 0, "healthPosy" : 0, "posx" : 0, "posy" : 0}, 
 			{"carte" : pygame.image.load("carte2.png").convert_alpha(), "attack" : 9, "health" : 5, "attackImg" : pygame.image.load("9.png").convert_alpha(), "healthImg" : pygame.image.load("5.png").convert_alpha(), "attackPosx" : 0, "attackPosy" : 0, "healthPosx" : 0, "healthPosy" : 0, "posx" : 0, "posy" : 0}
+			#{"carte" : pygame.image.load("juda_carte.png").convert_alpha(), "posx" : 0, "posy" : 0},
+			#{"carte" : pygame.image.load("juda_carte_pose.png").convert_alpha(), "posx" : 0, "posy" : 0}, 
+			#{"carte" : pygame.image.load("carte2.png").convert_alpha(), "posx" : 0, "posy" : 0}, 
+			#{"carte" : pygame.image.load("carte2.png").convert_alpha(), "posx" : 0, "posy" : 0}, 
+			#{"carte" : pygame.image.load("carte2.png").convert_alpha(), "posx" : 0, "posy" : 0}, 
+			#{"carte" : pygame.image.load("carte2.png").convert_alpha(), "posx" : 0, "posy" : 0}
 		 ]
+
 
 for carte in cartes:
 	carte_size = carte["carte"].get_rect()
@@ -102,17 +111,13 @@ while continuer : # boucle général
 								continuer_menu = 0
 								continuer_game = 1
 								continuer = 1
-								if __name__ == '__main__':
-								    main()
 								#fenetre = pygame.display.set_mode(screen_size, FULLSCREEN)
-
 							if menu["name"] == "jouer VS joueur" :
 								mode_game = 2
 								continuer_menu = 0
 								continuer_game = 1
 								continuer = 1
 								#fenetre = pygame.display.set_mode(screen_size, FULLSCREEN)
-
 							if menu["name"] == "quitter" :
 								mode_game = 0
 								continuer_menu = 0
@@ -139,8 +144,7 @@ while continuer : # boucle général
 		for carte in cartes:
 			fenetre.blit(carte["carte"], (carte["posx"], carte["posy"]))
 			carte_size = carte["carte"].get_rect()
-			carte["attackImg"] = pygame.image.load(str(carte["attack"]) + ".png").convert_alpha()
-			carte["healthImg"] = pygame.image.load(str(carte["health"]) + ".png").convert_alpha()
+			#print(carte_size)
 			carte["attackPosx"] = carte["posx"] + (carte_size[2] / 15)
 			carte["attackPosy"] = carte["posy"] + (carte_size[3] - (carte_size[3] / 9))
 			carte["healthPosx"] = carte["posx"] + (carte_size[2] - (carte_size[2] / 5))
@@ -170,8 +174,8 @@ while continuer : # boucle général
 					continuer = 1
 
 			if event.type == MOUSEBUTTONUP:
-				#print(cartes)
-				#print(fields)
+				print(cartes)
+				print(fields)
 				eposx = event.pos[0]
 				eposy = event.pos[1]
 				if saisi_carte == 0 :

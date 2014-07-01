@@ -1,0 +1,41 @@
+Amelie 5 30 2 Provoc 5 NoCamo Foudre Invoquation 1
+Adam 5 30 2 NoProvoc 5 Camo Eau AttaqueSolo 3
+Beatrice 2 20 1 Provoc 5 NoCamo Feu AttaqueMultiple 1
+Brice 2 20 1 NoProvoc 5 Camo Foudre AjoutPvSolo 3
+Claire 10 60 5 Provoc 5 NoCamo Eau AjoutPvMultiple 1
+Carl 10 60 5 NoProvoc 5 Camo Feu RedonnePvSolo 3
+Diane 5 30 2 Provoc 5 NoCamo Foudre RedonnePvMultiple 1
+Diego 5 30 2 NoProvoc 5 Camo Eau EnlevePropriete 1
+Eva 2 20 1 Provoc 5 NoCamo Feu AjoutePropriete 1
+Eric 2 20 1 NoProvoc 5 Camo Foudre PiocheCarte 1
+Flora 10 60 5 Provoc 5 NoCamo Eau DefauseCarte 1
+Florian 10 60 5 NoProvoc 5 Camo Feu Invoquation 1
+Gabrielle 5 30 2 Provoc 5 NoCamo Foudre AttaqueSolo 3
+Gaspard 5 30 2 NoProvoc 5 Camo Eau AttaqueMultiple 1
+Hope 2 20 1 Provoc 5 NoCamo Feu AjoutPvSolo 3
+Henry 2 20 1 NoProvoc 5 Camo Foudre AjoutPvMultiple 1
+Isabelle 10 60 5 Provoc 5 NoCamo Eau RedonnePvSolo 3
+Izac 10 60 5 NoProvoc 5 Camo Feu EnlevePropriete 1
+Josephine 5 30 2 Provoc 5 NoCamo Foudre AjoutePropriete 1
+Jean 5 30 2 NoProvoc 5 Camo Eau PiocheCarte 1
+Kathy 2 20 1 Provoc 5 NoCamo Feu DefauseCarte 1
+Keyvan 2 20 1 NoProvoc 5 Camo Foudre _ 0
+Laura 10 60 5 Provoc 5 NoCamo Eau _ 0
+Leo 10 60 5 NoProvoc 5 Camo Feu _ 0
+Marie 5 30 2 Provoc 5 NoCamo Foudre _ 0
+Mickael 5 30 2 NoProvoc 5 Camo Eau _ 0
+Nathalie 2 20 1 Provoc 5 NoCamo Feu _ 0
+Nathan 2 20 1 NoProvoc 5 Camo Foudre _ 0
+Ophelie 10 60 5 Provoc 5 NoCamo Eau _ 0
+Olaf 10 60 5 NoProvoc 5 Camo Feu _ 0
+Peneloppe 5 30 2 Provoc 5 NoCamo Foudre _ 0
+Patrick 5 30 2 NoProvoc 5 Camo Eau _ 0
+Rachel 2 20 1 Provoc 5 NoCamo Feu _ 0
+Raphael 2 20 1 NoProvoc 5 Camo Foudre _ 0
+Sandrine 10 60 5 Provoc 5 NoCamo Eau _ 0
+Sylvain 10 60 5 NoProvoc 5 Camo Feu _ 0
+
+nom_carte       force_attack       health       mana       provoc/pas       bouclier       camouflé/pas       type       power       force_power
+
+
+{"carte" : pygame.image.load(nom_carte + ".png").convert_alpha(), "attack" : pygame.image.load(attack + ".png").convert_alpha(), "health" : pygame.image.load(health + ".png").convert_alpha(), "provoc" : "provoc/noProvoc", "shield" : 5 image shield , "camo" : "camo / not", "type" : "eau / feu / autres", "power" : "some", "force_power" : 10, "posx" : 0, "posy" : 0, "attackPosx" : 0, "attackPosy" : 0, "healthPosx" : 0, "healthPosy" : 0, "shieldPosx" : 0, "shieldPosy" : 0}
