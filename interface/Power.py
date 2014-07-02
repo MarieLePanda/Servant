@@ -67,8 +67,9 @@ class Power :
                     cardEnemy.shield = 0
                 if cardEnemy.health <= 0 :
                     print(cardEnemy.name, " est hors jeu")
-                else :
-                    print("Il reste ", cardEnemy.health, " pv a ", cardEnemy.name)
+                    enemy.field.remove(cardEnemy)
+                #else :
+                    #print("Il reste ", cardEnemy.health, " pv a ", cardEnemy.name)
 
 
 

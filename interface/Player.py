@@ -31,6 +31,7 @@ class Player :
         self.name = name
         self.health = 3
         self.mana = 1
+        self.manaMax = 1
         self.field = []
         self.provocField = []
         self.camoField = []
@@ -48,62 +49,90 @@ class Player :
 
     def pickUp(self, listCard) :
         """add card in hand"""
+        if(listCard != []) :
+            print(self.name, " pioche une carte")
+            numCard = random.randint(0, len(listCard) - 1)
+            listCard[numCard].print()
+            self.hand.append(listCard[numCard])
+            listCard.remove(listCard[numCard])
+        else :
+            print("plus de carte vie -1 ")
+            self.health -= 1
+        if self.manaMax < 10:
+            self.manaMax = self.manaMax + 1
+        self.mana = self.manaMax
 
-        print(self.name, " pioche une carte")
-        numCard = random.randint(0, len(listCard) - 1)
-        listCard[numCard].print()
-        self.hand.append(listCard[numCard])
-        listCard.remove(listCard[numCard])
 
 
+#    def deploy(self, enemy) :
+#        """Sends a servant on the field"""
+#
+#        print("=======================DEBUT PHASE ENVOIE SUR TERRAIN=======================")
+#        time.sleep(2)
+#        self.toString()
+#        time.sleep(2)
+#        choice = False
+#        print("\nListe de vos serviteur dans votre main \n")
+#        for cardPlayer in self.hand :
+#            cardPlayer.print()
+#            time.sleep(1)
+#        time.sleep(2)
+#        if len(self.hand) > 0 :
+#            print("\n Quel serviteur voulez vous envoyer sur le terrain ?")
+#            nameServantGoToField = ""
+#            randomCard = []
+#            while (choice == False) :
+#                if self.IAorNot is False:
+#                    nameServantGoToField = input("Choisisez le nom du serviteur a envoyer ou 0 si vous ne voulez envoyer personne\n").lower()
+#                else :
+#                    print("Je suis un IA donc random")
+#                    numCard = random.randint(0, len(self.hand) - 1)
+#                    randomCard = self.hand[numCard]
+#                    nameServantGoToField = randomCard.name.lower()  
+#                    print(nameServantGoToField)    
+#                for card in self.hand :
+#                    if nameServantGoToField == card.name.lower() and card.cost <= self.mana:
+#                        choice = True
+#                        self.field.append(card)
+#                        self.hand.remove(card)
+#                        self.setMana(self.mana - card.cost)
+#                        Power.attackServant(self, enemy, card)
+#                        Power.attackServantMultiple(enemy, card)
+#                        Power.addHpMax(self, enemy, card)
+#                        Power.addHpMaxMultiple(self, enemy, card)
+#                        Power.pickupCard(self, cardPlayer)
+#                        Power.dropCard(card, enemy)
+#                        print("Verif")
+#                        card.print()
+#                    elif nameServantGoToField == "0" :
+#                        choice = True
+#        else :
+#            print("Vous n'avez aucune carte dans votre main")
+#        time.sleep(2)            
+#        print("=======================FIN PHASE ENVOIE SUR TERRAIN=======================")
+#        time.sleep(2)
 
-    def deploy(self, enemy) :
+    def deploy(self, enemy, carte) :
         """Sends a servant on the field"""
 
-        print("=======================DEBUT PHASE ENVOIE SUR TERRAIN=======================")
-        time.sleep(2)
-        self.toString()
-        time.sleep(2)
-        choice = False
-        print("\nListe de vos serviteur dans votre main \n")
-        for cardPlayer in self.hand :
-            cardPlayer.print()
-            time.sleep(1)
-        time.sleep(2)
         if len(self.hand) > 0 :
-            print("\n Quel serviteur voulez vous envoyer sur le terrain ?")
-            nameServantGoToField = ""
-            randomCard = []
-            while (choice == False) :
-                if self.IAorNot is False:
-                    nameServantGoToField = input("Choisisez le nom du serviteur a envoyer ou 0 si vous ne voulez envoyer personne\n").lower()
-                else :
-                    print("Je suis un IA donc random")
-                    numCard = random.randint(0, len(self.hand) - 1)
-                    randomCard = self.hand[numCard]
-                    nameServantGoToField = randomCard.name.lower()  
-                    print(nameServantGoToField)    
-                for card in self.hand :
-                    if nameServantGoToField == card.name.lower() and card.cost <= self.mana:
-                        choice = True
-                        self.field.append(card)
-                        self.hand.remove(card)
-                        self.setMana(self.mana - card.cost)
-                        Power.attackServant(self, enemy, card)
-                        Power.attackServantMultiple(enemy, card)
-                        Power.addHpMax(self, enemy, card)
-                        Power.addHpMaxMultiple(self, enemy, card)
-                        Power.pickupCard(self, cardPlayer)
-                        Power.dropCard(card, enemy)
-                        print("Verif")
-                        card.print()
-                    elif nameServantGoToField == "0" :
-                        choice = True
-        else :
-            print("Vous n'avez aucune carte dans votre main")
-        time.sleep(2)            
-        print("=======================FIN PHASE ENVOIE SUR TERRAIN=======================")
-        time.sleep(2)
+            if self.IAorNot is True:
+                print("Je suis un IA donc random")
+                numCard = random.randint(0, len(self.hand) - 1)
+                randomCard = self.hand[numCard]
+                nameServantGoToField = randomCard.name.lower()  
+                print(nameServantGoToField) 
+
+            self.field.append(carte)
+            self.hand.remove(carte)
+            self.setMana(self.mana - carte.carte["cost"])
+            #Power.attackServant(self, enemy, carte)
+            #Power.attackServantMultiple(enemy, carte)
+            #Power.addHpMax(self, enemy, carte)
+            #Power.addHpMaxMultiple(self, enemy, carte)
+            #Power.pickupCard(self, cardPlayer)
+            #Power.dropCard(carte, enemy)
+            print("Verif")
 
 
 
