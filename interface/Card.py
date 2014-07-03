@@ -82,63 +82,65 @@ class Card :
         """Servant one hit enemy or servant card"""
 
         print("\n-----------FIGHT-----------\n")
-        time.sleep(2)
+        #time.sleep(2)
         if card != None :
             print(self.name, " (", self.attack, "/[", self.health, "/", self.healthMax, "]) attaque ", card.name, " (", card.attack, "/[", card.health, "/", card.healthMax, "])")
-            time.sleep(2)
+            #time.sleep(2)
             if card.shield > 0 :
                 print("Le bouclier de ",  card.name, " absorde les degats")
-                time.sleep(2)
+                #time.sleep(2)
                 card.shield -= self.calcHavoc(card.element)
             else :
                 card.health -= self.calcHavoc(card.element)
             if card.shield < 0 :
                 print("Le bouclier de ", card.name,"a cede")
-                time.sleep(2)
+                #time.sleep(2)
                 card.health += card.shield
                 card.shield = 0
 
             if self.shield > 0 :
                 print("Le bouclier de ",  self.name, " absorde les degats")
-                time.sleep(2)
+                #time.sleep(2)
                 self.shield -= card.calcHavoc(self.element)
             else :
                 self.health -= card.calcHavoc(self.element)
 
             if self.shield < 0 :
                 print("Le bouclier de ",  self.name,"a cede")
-                time.sleep(2)
+                #time.sleep(2)
                 self.health += self.shield
                 self.shield = 0
 
             if self.health <= 0 :
                 print(self.name, " est hors jeu")
                 Power.invokServant(player, enemy, self)
-                time.sleep(2)
+                #time.sleep(2)
+                player.field.remove(self)
             else :
                 print("Il reste ", self.health, " pv a ", self.name)
                 Power.addHp(enemy, player, self)
                 Power.addHpMultiple(player, enemy, self)
-                time.sleep(2)
+                #time.sleep(2)
 
             if card.health <= 0 :
                 print(card.name, " est hors jeu")
-                time.sleep(2)
+                #time.sleep(2)
                 Power.invokServant(enemy, player, card)
+                enemy.field.remove(card)
             else :
                 print("Il reste ", card.health, " pv a ", card.name)
                 Power.addHp(player, enemy, card)
                 Power.addHpMultiple(player, enemy, card)
-                time.sleep(2)
+                #time.sleep(2)
         else :
             print(self.name, " (", self.attack, "/", self.health, ") attaque ", enemy.name, " (", enemy.health, ")")
             enemy.health -= self.attack
             if enemy.health <= 0 :
                 print(enemy.name, " est hors jeu")
-                time.sleep(2)
+                #time.sleep(2)
             else :
                 print("Il reste ", enemy.health, " pv a ", enemy.name)
-                time.sleep(2)
+                #time.sleep(2)
 
 
 

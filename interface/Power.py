@@ -10,7 +10,7 @@
 #-------------------------------------------------------------------------------
 
 #from Player import Player
-import time
+#import time
 import random
 
 class Power :
@@ -24,7 +24,7 @@ class Power :
         
         if card.power.name == "Invoquation" :
             print(player.name, " Peux invoquer un serviteur")
-            player.deploy(enemy)
+            player.deploy(enemy, card)
 
 
     def attackServant(player, enemy, card) :
@@ -79,8 +79,8 @@ class Power :
             print(card.name, " peut augmenter la sante max d'un serviteur")
             for cardPlayer in player.field :
                 cardPlayer.print(False)
-                time.sleep(1)
-            time.sleep(2)
+                #time.sleep(1)
+            #time.sleep(2)
             while(True) :
                 if player.IAorNot is False:
                     nameServantTarget = input("Choisisez le nom du serviteur a booster\n").lower()
@@ -101,8 +101,8 @@ class Power :
             print(card.name, " peut augmenter la sante max de tous les serviteurs")
             for cardPlayer in player.field :
                 cardPlayer.print(False)
-                time.sleep(1)
-            time.sleep(2)
+                #time.sleep(1)
+            #time.sleep(2)
             for cardPlayer in player.field :
                 cardPlayer.healthMax += card.power.value
                 print(cardPlayer.name, " a vu sa sante augmente")
@@ -114,8 +114,8 @@ class Power :
             print(card.name, " peut soigner un serviteur")
             for cardPlayer in player.field :
                 cardPlayer.print(False)
-                time.sleep(1)
-            time.sleep(2)
+                #time.sleep(1)
+            #time.sleep(2)
             while(True) :
                 if player.IAorNot is False:
                     nameServantTarget = input("Choisisez le nom du serviteur a soigner\n").lower()
@@ -138,8 +138,8 @@ class Power :
             print(card.name, " soigne tous les serviteurs")
             for cardPlayer in player.field :
                 cardPlayer.print(False)
-                time.sleep(1)
-            time.sleep(2)
+                #time.sleep(1)
+            #time.sleep(2)
             for cardPlayer in player.field :
                 cardPlayer.health += card.power.value
                 print(cardPlayer.name, " a ete soigne")

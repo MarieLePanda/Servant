@@ -211,6 +211,8 @@ def main():
                 #fenetre.blit(fond2, (0, 0))
                 for c in playerOne.hand:
                     # positionnement des cartes dans la main
+                    if c.carte["health"] <= 0 :
+                        playerOne.field.remove(c)
                     fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
                     carte_size = c.carte["carte"].get_rect()
                     c.carte["attackImg"] = pygame.image.load(str(c.carte["attack"]) + ".png").convert_alpha()
@@ -233,6 +235,8 @@ def main():
 
                 for c in playerOne.field:
                     # positionnement des cartes sur le térrain
+                    if c.carte["health"] <= 0 :
+                        playerOne.field.remove(c)
                     carte_size = c.carte["carte"].get_rect()
                     fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
                     c.carte["attackImg"] = pygame.image.load(str(c.carte["attack"]) + ".png").convert_alpha()
@@ -253,6 +257,8 @@ def main():
 
                 for c in playerTwo.field:
                     # positionnement des cartes sur le térrain
+                    if c.carte["health"] <= 0 :
+                        playerTwo.field.remove(c)
                     carte_size = c.carte["carte"].get_rect()
                     fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
                     c.carte["attackImg"] = pygame.image.load(str(c.carte["attack"]) + ".png").convert_alpha()
@@ -376,6 +382,7 @@ def main():
                                 if ( ( eposx >= xPos and eposx <= (lifeBackEnemySize[0] + xPos) ) and ( eposy >= yPos and eposy <= (lifeBackEnemySize[1] + yPos) ) ):
                                     #attack les points de vie adverse
                                     pygame.mouse.set_cursor(*pygame.cursors.arrow)
+                                    carte.name.newFight(playerOne, playerTwo)
                                     saisi_attack = 0
                                 for i, carte in enumerate(playerTwo.field):
                                     carte_size = carte.carte["carte"].get_rect()
@@ -383,7 +390,8 @@ def main():
                                     if ( ( eposx >= posx and eposx <= (carte_size[2] + posx) ) and ( eposy >= posy and eposy <= (carte_size[3] + posy) ) ):
                                         # attack carte adverse
                                         print("attack")
-                                        carte_attack.fight(carte)
+                                        #carte_attack.fight(carte)
+                                        carte_attack.newFight(playerOne, playerTwo, carte)
                                         pygame.mouse.set_cursor(*pygame.cursors.arrow)
                                         saisi_attack = 0
 
