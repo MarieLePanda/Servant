@@ -33,8 +33,8 @@ class Power :
             print(card.name, " peut attaquer")
             
             if 0 < len(enemy.field) and len(enemy.field) > len(enemy.camoField) :
-                player.displayField(enemy)
-                cardEnemy = player.chosePlayerOrServant(enemy, True)
+                #player.displayField(enemy)
+                #cardEnemy = player.chosePlayerOrServant(enemy, True)
                 print(cardEnemy.name, " Prend ", card.power.value, " de degat")
                 if cardEnemy.shield > 0 :
                     cardEnemy.shield -= card.power.value

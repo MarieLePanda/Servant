@@ -130,7 +130,7 @@ class Player :
             #Power.attackServantMultiple(enemy, carte)
             #Power.addHpMax(self, enemy, carte)
             #Power.addHpMaxMultiple(self, enemy, carte)
-            #Power.pickupCard(self, cardPlayer)
+            #Power.pickupCard(self, carte)
             #Power.dropCard(carte, enemy)
             print("Verif")
 
