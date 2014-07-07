@@ -162,7 +162,6 @@ def main():
                 c.carte["posx"] = carte_posx
                 carte_posx += (carte_size[2] / 3)
                 c.carte["posy"] = screen_size[1] - (carte_size[3] + 20)
-#                print("DEBUG : playerOne.hand" + str(c.carte))
 
             carte_posx = 400
             for c in playerTwo.hand :
@@ -172,7 +171,6 @@ def main():
                 c.carte["posx"] = carte_posx
                 carte_posx += (carte_size[2] / 3)
                 c.carte["posy"] = 20
-#                print("DEBUG : playerTwo.hand" + str(c.carte))
 
             carte_posx = 100
             for c in playerOne.field :
@@ -181,7 +179,6 @@ def main():
                 c.carte["posx"] = carte_posx
                 carte_posx += carte_size[2] + 5
                 c.carte["posy"] = (screen_size[1] / 2) - 5
-#                print("DEBUG : playerOne.Field" + str(c.carte))
 
             carte_posx = 100
             for c in playerTwo.field :
@@ -190,7 +187,6 @@ def main():
                 c.carte["posx"] = carte_posx
                 carte_posx += carte_size[2] + 5
                 c.carte["posy"] = (screen_size[1] / 2) - (carte_size[3] + 10)
-#                print("DEBUG : playerTwo.Field" + str(c.carte))
 
             lifeBack = pygame.image.load("vie.png").convert_alpha()
             lifeBackEnemy = pygame.image.load("vie.png").convert_alpha()
@@ -204,7 +200,6 @@ def main():
             while continuer_game: # boucle du jeu
 
                 fenetre.blit(fond, (0, 0))
-                #fenetre.blit(fond2, (0, 0))
                 for c in playerOne.hand:
                     # positionnement des cartes dans la main
                     if c.carte["health"] <= 0 :
@@ -325,19 +320,9 @@ def main():
                                 if ( ( eposx >= endOfRound["posx"] and eposx <= (roundButton_size[2] + endOfRound["posx"]) ) and ( eposy >= endOfRound["posy"] and eposy <= (roundButton_size[3] + endOfRound["posy"]) ) ):
                                     playerTwo.pickUp(playerTwo.deck)
                                     winner = Field.playTurn2(playerTwo, playerOne)
-                                    #pygame.mouse.set_cursor(*pygame.cursors.arrow)
+                                    for c in playerOne.field :
+                                        c.carte["statu"] = 0
                                     saisi_attack = 0
-                                    x = 0
-                                    carte_posx = 200
-                                    c = pygame.image.load("carte2.png").convert_alpha()
-                                    cSize = c.get_rect()
-                                    y = screen_size[1] - (cSize[3] + 20)
-#                                    if( playerOne.hand != [] ):
-#                                        for carte in playerOne.hand:
-#                                            carte_size = carte.carte["carte"].get_rect()
-#                                            x = (carte_size[2] / 3)
-#                                            carte_posx += x
-#                                            y = screen_size[1] - (carte_size[3] + 20)
                                     playerOne.pickUp(playerOne.deck)
                                     continuer_game = 0
                         else :
@@ -367,6 +352,7 @@ def main():
                                     carte_size = carte.carte["carte"].get_rect()
                                     posx, posy = carte.carte["posx"], carte.carte["posy"]
                                     if ( ( eposx >= posx and eposx <= (carte_size[2] + posx) ) and ( eposy >= posy and eposy <= (carte_size[3] + posy) ) ):
+                                        if( carte.carte["statu"] == 0 ) :
                                             saisi_attack = 1
                                             pygame.mouse.set_cursor(*pygame.cursors.diamond)
                                             carte_attack = carte
@@ -381,6 +367,7 @@ def main():
                                     #attack les points de vie adverse
                                     pygame.mouse.set_cursor(*pygame.cursors.arrow)
                                     carte_attack.newFight(playerOne, playerTwo)
+                                    carte_attack.carte["statu"] = 1
                                     saisi_attack = 0
                                     continuer_game = 0
                                 for i, carte in enumerate(playerTwo.field):
@@ -389,12 +376,10 @@ def main():
                                     if ( ( eposx >= posx and eposx <= (carte_size[2] + posx) ) and ( eposy >= posy and eposy <= (carte_size[3] + posy) ) ):
                                         # attack carte adverse
                                         print("attack")
-                                        #carte_attack.fight(carte)
                                         carte_attack.newFight(playerOne, playerTwo, carte)
                                         pygame.mouse.set_cursor(*pygame.cursors.arrow)
+                                        carte_attack.carte["statu"] = 1
                                         saisi_attack = 0
-
-
 
                     if saisi_carte == 1 :
                         if event.type == MOUSEMOTION :
