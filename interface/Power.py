@@ -24,7 +24,10 @@ class Power :
         
         if card.power.name == "Invoquation" :
             print(player.name, " Peux invoquer un serviteur")
-            player.deploy(enemy, card)
+            numCard = random.randint(0, len(player.deck) - 1)
+            player.hand.append(player.deck[numCard])
+            player.deck.remove(player.deck[numCard])
+            player.deploy(enemy, player.hand[-1])
 
 
     def attackServant(player, enemy, card) :

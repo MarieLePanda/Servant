@@ -29,7 +29,7 @@ class Player :
             self.deck.remove(self.deck[numCard])
             #print("hand", self.hand, " ; ")
         self.name = name
-        self.health = 3
+        self.health = 17
         self.mana = 1
         self.manaMax = 1
         self.field = []
@@ -64,53 +64,56 @@ class Player :
 
 
 
-#    def deploy(self, enemy) :
-#        """Sends a servant on the field"""
-#
-##        print("=======================DEBUT PHASE ENVOIE SUR TERRAIN=======================")
-##        time.sleep(2)
-#        self.toString()
-##        time.sleep(2)
-#        choice = False
-##        print("\nListe de vos serviteur dans votre main \n")
-#        for cardPlayer in self.hand :
-##            cardPlayer.print()
-##            time.sleep(1)
-##        time.sleep(2)
-#        if len(self.hand) > 0 :
-##            print("\n Quel serviteur voulez vous envoyer sur le terrain ?")
-#            nameServantGoToField = ""
-#            randomCard = []
-#            while (choice == False) :
-#                if self.IAorNot is False:
-#                    nameServantGoToField = input("Choisisez le nom du serviteur a envoyer ou 0 si vous ne voulez envoyer personne\n").lower()
-#                else :
-##                    print("Je suis un IA donc random")
-#                    numCard = random.randint(0, len(self.hand) - 1)
-#                    randomCard = self.hand[numCard]
-#                    nameServantGoToField = randomCard.name.lower()  
-##                    print(nameServantGoToField)    
-#                for card in self.hand :
-#                    if nameServantGoToField == card.name.lower() and card.cost <= self.mana:
-#                        choice = True
-#                        self.field.append(card)
-#                        self.hand.remove(card)
-#                        self.setMana(self.mana - card.cost)
-#                        Power.attackServant(self, enemy, card)
-#                        Power.attackServantMultiple(enemy, card)
-#                        Power.addHpMax(self, enemy, card)
-#                        Power.addHpMaxMultiple(self, enemy, card)
-#                        Power.pickupCard(self, cardPlayer)
-#                        Power.dropCard(card, enemy)
-##                        print("Verif")
-##                        card.print()
-#                    elif nameServantGoToField == "0" :
-#                        choice = True
-#        else :
-##            print("Vous n'avez aucune carte dans votre main")
-##        time.sleep(2)            
-##        print("=======================FIN PHASE ENVOIE SUR TERRAIN=======================")
-##        time.sleep(2)
+    def deploy2(self, enemy) :
+        """Sends a servant on the field"""
+
+        print("=======================DEBUT PHASE ENVOIE SUR TERRAIN=======================")
+        #time.sleep(2)
+        self.toString()
+        #time.sleep(2)
+        choice = False
+        print("\nListe de vos serviteur dans votre main \n")
+        for cardPlayer in self.hand :
+            cardPlayer.print()
+            #time.sleep(1)
+        #time.sleep(2)
+        if len(self.hand) > 0 :
+            print("\n Quel serviteur voulez vous envoyer sur le terrain ?")
+            nameServantGoToField = ""
+            randomCard = []
+            while (choice == False) :
+                if self.IAorNot is False:
+                    nameServantGoToField = input("Choisisez le nom du serviteur a envoyer ou 0 si vous ne voulez envoyer personne\n").lower()
+                else :
+                    print("Je suis un IA donc random")
+                    numCard = random.randint(0, len(self.hand) - 1)
+                    randomCard = self.hand[numCard]
+                    if(self.mana < randomCard.cost):
+                        print("je part")
+                        break
+                    nameServantGoToField = randomCard.name.lower()  
+                    print(nameServantGoToField)    
+                for card in self.hand :
+                    if nameServantGoToField == card.name.lower() and card.cost <= self.mana:
+                        choice = True
+                        self.field.append(card)
+                        self.hand.remove(card)
+                        self.setMana(self.mana - card.cost)
+                        Power.attackServant(self, enemy, card)
+                        Power.attackServantMultiple(enemy, card)
+                        Power.addHpMax(self, enemy, card)
+                        Power.addHpMaxMultiple(self, enemy, card)
+                        Power.pickupCard(self, cardPlayer)
+                        Power.dropCard(card, enemy)
+                        print("Verif")
+                        card.print()
+                    elif nameServantGoToField == "0" :
+                        choice = True
+        else :
+            print("Vous n'avez aucune carte dans votre main")
+        #time.sleep(2)            
+        print("=======================FIN PHASE ENVOIE SUR TERRAIN=======================")
+        #time.sleep(2)
 
     def deploy(self, enemy, carte) :
         """Sends a servant on the field"""
@@ -150,11 +153,11 @@ class Player :
         print(self.name, " :", self.health)
         for cardPlayer in self.field :
             cardPlayer.print()
-            #time.sleep(1)
+            ##time.sleep(1)
         print(enemy.name, " :", enemy.health)
         for cardEnemy in enemy.field :
             cardEnemy.print(False)
-            #time.sleep(1)
+            ##time.sleep(1)
         print("------------------------------------")
 
 
@@ -163,19 +166,19 @@ class Player :
         """Returns the servant selected to attack"""
 
         print("=======================DEBUT PHASE SELECTION ATTAQUANT=======================")
-        #time.sleep(2)
+        ##time.sleep(2)
         choice = False
         print("\nListe des servants sur le terrain")
         for cardPlayer in self.field :
             cardPlayer.print(False)
-            #time.sleep(1)
-        time.sleep(2)
+            ##time.sleep(1)
+        ##time.sleep(2)
 
         print("\nListe de vos serviteur sur le terrain qui peuvent attaquer")
         for cardPlayer in servantCanAttack :
             cardPlayer.print(False)
-            #time.sleep(1)
-        #time.sleep(2)
+            ##time.sleep(1)
+        ##time.sleep(2)
         while choice == False :
             if self.IAorNot is False:
                 nameServantAttack = input("Choisisez le nom du serviteur qui va attaquer\n").lower()
@@ -191,7 +194,7 @@ class Player :
                     servantAttack = cardPlayer
                     servantCanAttack.remove(cardPlayer)
         print("=======================FIN PHASE SELECTION ATTAQUANT=======================")
-        #time.sleep(2)
+        ##time.sleep(2)
 
         return servantAttack
 
@@ -201,20 +204,20 @@ class Player :
         """Returns the enemy servant targeted for attack"""
 
         print("=======================DEBUT PHASE SELECTION CIBLE=======================")
-        #time.sleep(2)
+        ##time.sleep(2)
         print("\nListe des serviteur adverse sur le terrain")
         for cardEnemy in enemy.field :
             if cardEnemy not in enemy.camoField :
                 cardEnemy.print(False)
-                #time.sleep(1)
-        #time.sleep(2)
+                ##time.sleep(1)
+        ##time.sleep(2)
         if len(enemy.provocField) > 0:
             print("Les serviteur ennemie vous provoque\n")
             return self.choseProvocServant(enemy)
         else:
             return self.chosePlayerOrServant(enemy)
         print("=======================FIN PHASE SELECTION CIBLE=======================")
-        #time.sleep(2)
+        ##time.sleep(2)
 
 
     def chosePlayerOrServant(self, enemy, power = False):
@@ -265,8 +268,8 @@ class Player :
         while True:
             for cardEnemy in enemy.provocField :
                 cardEnemy.print(False)
-                #time.sleep(1)
-            #time.sleep(2)
+                ##time.sleep(1)
+            ##time.sleep(2)
             print("choisisez le nom du serviteur a attaquer\n")
             if self.IAorNot is False:
                 nameServantTarget = input("\n").lower()
@@ -286,7 +289,7 @@ class Player :
         while(choose) :
             for card in self.hand :
                 card.print(False)
-                #time.sleep(1)
+                ##time.sleep(1)
             print("Choisisez le nom du serviteur defausez\n")
             if self.IAorNot is False :
                 nameServantTarget = input("\n").lower()

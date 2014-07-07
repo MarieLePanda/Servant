@@ -153,10 +153,6 @@ def main():
                                     continuer = 0
 
         while winner == None :
-            if i == 0 :
-                playerTwo.field.append(playerTwo.hand[0])
-                playerTwo.hand.remove(playerTwo.hand[0])
-                i = 1
             continuer_game = 1
 
             carte_posx = 400
@@ -202,8 +198,8 @@ def main():
                 playerOne.health = 0
             if playerTwo.health < 0 :
                 playerTwo.health = 0
-            life = pygame.image.load(str(playerOne.health) + "_vie.png").convert_alpha()
-            lifeEnemy = pygame.image.load(str(playerTwo.health) + "_vie.png").convert_alpha()
+            life = pygame.image.load(str(playerOne.health) + ".png").convert_alpha()
+            lifeEnemy = pygame.image.load(str(playerTwo.health) + ".png").convert_alpha()
             fenetre.blit(lifeBackEnemy, (0, 0))
             while continuer_game: # boucle du jeu
 
@@ -215,8 +211,8 @@ def main():
                         playerOne.field.remove(c)
                     fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
                     carte_size = c.carte["carte"].get_rect()
-                    c.carte["attackImg"] = pygame.image.load(str(c.carte["attack"]) + ".png").convert_alpha()
-                    c.carte["healthImg"] = pygame.image.load(str(c.carte["health"]) + ".png").convert_alpha()
+                    c.carte["attackImg"] = pygame.image.load(str(c.attack) + ".png").convert_alpha()
+                    c.carte["healthImg"] = pygame.image.load(str(c.health) + ".png").convert_alpha()
                     c.carte["attackPosx"] = c.carte["posx"] + (carte_size[2] / 15)
                     c.carte["attackPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 9))
                     c.carte["healthPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 5))
@@ -284,8 +280,14 @@ def main():
                 # mana player and enemy
                 fenetre.blit(pygame.image.load("mana.png").convert_alpha(), (screen_size[0] - 50, 40))
                 fenetre.blit(pygame.image.load("mana.png").convert_alpha(), (screen_size[0] - 50,screen_size[1] - 60))
-                fenetre.blit(pygame.image.load(str(playerTwo.mana) + ".png").convert_alpha(), (screen_size[0] - 35,55))
-                fenetre.blit(pygame.image.load(str(playerOne.mana) + ".png").convert_alpha(), (screen_size[0] - 35,screen_size[1] - 45))
+                if(playerTwo.mana > 0):
+                    fenetre.blit(pygame.image.load(str(playerTwo.mana) + ".png").convert_alpha(), (screen_size[0] - 35,55))
+                else:
+                    fenetre.blit(pygame.image.load("0.png").convert_alpha(), (screen_size[0] - 35,55))
+                if(playerOne.mana > 0):
+                    fenetre.blit(pygame.image.load(str(playerOne.mana) + ".png").convert_alpha(), (screen_size[0] - 35,screen_size[1] - 45))
+                else :
+                    fenetre.blit(pygame.image.load("0.png").convert_alpha(), (screen_size[0] - 35,screen_size[1] - 45))
                 pygame.display.flip()
 
                 for event in pygame.event.get():   #On parcours la liste de tous les événements reçus
@@ -321,12 +323,8 @@ def main():
                                 
                                 roundButton_size = endOfRound["button"].get_rect()
                                 if ( ( eposx >= endOfRound["posx"] and eposx <= (roundButton_size[2] + endOfRound["posx"]) ) and ( eposy >= endOfRound["posy"] and eposy <= (roundButton_size[3] + endOfRound["posy"]) ) ):
-                                    # changement de tour lorsqu'on clique sur fin de tour
-#                                    if(turnIdx == 0) :
-#                                        turnIdx = 1
-#                                    else :
-#                                        turnIdx = 0
-                                    winner = Field.playTurn(playerTwo, playerOne)
+                                    playerTwo.pickUp(playerTwo.deck)
+                                    winner = Field.playTurn2(playerTwo, playerOne)
                                     #pygame.mouse.set_cursor(*pygame.cursors.arrow)
                                     saisi_attack = 0
                                     x = 0
@@ -340,7 +338,6 @@ def main():
 #                                            x = (carte_size[2] / 3)
 #                                            carte_posx += x
 #                                            y = screen_size[1] - (carte_size[3] + 20)
-                                    playerTwo.pickUp(playerTwo.deck)
                                     playerOne.pickUp(playerOne.deck)
                                     continuer_game = 0
                         else :
@@ -377,13 +374,15 @@ def main():
 
                         if saisi_attack != 0 :
                             if event.button == 1 :
+                                lifeBackEnemySize = lifeBackEnemy.get_rect()
                                 xPos = posLifeBackEnemy[0] + lifeBackEnemySize[2] / 2 - 15
                                 yPos = posLifeBackEnemy[1] + lifeBackEnemySize[3] / 2
-                                if ( ( eposx >= xPos and eposx <= (lifeBackEnemySize[0] + xPos) ) and ( eposy >= yPos and eposy <= (lifeBackEnemySize[1] + yPos) ) ):
+                                if ( ( eposx >= xPos and eposx <= (lifeBackEnemySize[2] + xPos) ) and ( eposy >= yPos and eposy <= (lifeBackEnemySize[3] + yPos) ) ):
                                     #attack les points de vie adverse
                                     pygame.mouse.set_cursor(*pygame.cursors.arrow)
-                                    carte.name.newFight(playerOne, playerTwo)
+                                    carte_attack.newFight(playerOne, playerTwo)
                                     saisi_attack = 0
+                                    continuer_game = 0
                                 for i, carte in enumerate(playerTwo.field):
                                     carte_size = carte.carte["carte"].get_rect()
                                     posx, posy = carte.carte["posx"], carte.carte["posy"]
