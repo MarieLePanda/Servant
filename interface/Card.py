@@ -81,7 +81,7 @@ class Card :
     def newFight(self, player, enemy, card = None):
         """Servant one hit enemy or servant card"""
 
-        print("\n-----------FIGHT-----------\n")
+        print("\n-----------------FIGHT-----------------\n")
         #time.sleep(2)
         if card != None :
             print(self.name, " (", self.attack, "/[", self.health, "/", self.healthMax, "]) attaque ", card.name, " (", card.attack, "/[", card.health, "/", card.healthMax, "])")
@@ -115,7 +115,8 @@ class Card :
                 print(self.name, " est hors jeu")
                 Power.invokServant(player, enemy, self)
                 #time.sleep(2)
-                player.field.remove(self)
+                if self in player.field :
+                    player.field.remove(self)
             else :
                 print("Il reste ", self.health, " pv a ", self.name)
                 Power.addHp(enemy, player, self)
@@ -126,7 +127,8 @@ class Card :
                 print(card.name, " est hors jeu")
                 #time.sleep(2)
                 Power.invokServant(enemy, player, card)
-                enemy.field.remove(card)
+                if card in enemy.field :
+                    enemy.field.remove(card)
             else :
                 print("Il reste ", card.health, " pv a ", card.name)
                 Power.addHp(player, enemy, card)

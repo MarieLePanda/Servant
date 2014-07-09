@@ -37,7 +37,7 @@ class Power :
             
             if 0 < len(enemy.field) and len(enemy.field) > len(enemy.camoField) :
                 #player.displayField(enemy)
-                #cardEnemy = player.chosePlayerOrServant(enemy, True)
+                cardEnemy = player.chosePlayerOrServant(enemy, True)
                 print(cardEnemy.name, " Prend ", card.power.value, " de degat")
                 if cardEnemy.shield > 0 :
                     cardEnemy.shield -= card.power.value
@@ -70,7 +70,8 @@ class Power :
                     cardEnemy.shield = 0
                 if cardEnemy.health <= 0 :
                     print(cardEnemy.name, " est hors jeu")
-                    enemy.field.remove(cardEnemy)
+                    if cardEnemy in enemy.field :
+                        enemy.field.remove(cardEnemy)
                 #else :
                     #print("Il reste ", cardEnemy.health, " pv a ", cardEnemy.name)
 

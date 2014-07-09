@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Name:        module1
 # Purpose:
 #
@@ -23,14 +23,161 @@ from Field import Field
 import pygame
 from pygame.locals import *
 
+screen_size = 1300, 800
 def main():
+    jouer()
+
+
+def carteHandAndField(playerOne, playerTwo) :
+
+    carte_posx = 400
+    for c in playerTwo.hand :
+        # positionnement des cartes ennemies dans sa main
+        c.carte["carte"] = pygame.image.load("carte_dos.png").convert_alpha()
+        carte_size = c.carte["carte"].get_rect()
+        c.carte["posx"] = carte_posx
+        carte_posx += (carte_size[2] / 3)
+        c.carte["posy"] = 20
+
+    carte_posx = 400
+    for c in playerOne.hand:
+        # positionnement des cartes dans la main
+        c.carte["carte"] = pygame.image.load(c.carte["name"] + ".png").convert_alpha()
+        carte_size = c.carte["carte"].get_rect()
+        c.carte["posx"] = carte_posx
+        carte_posx += (carte_size[2] / 3)
+        c.carte["posy"] = screen_size[1] - (carte_size[3] + 20)
+
+
+    carte_posx = 100
+    for c in playerOne.field :
+        c.carte["carte"] = pygame.image.load(str(c.carte["name"]) + "_pose.png").convert_alpha()
+        carte_size = c.carte["carte"].get_rect()
+        c.carte["posx"] = carte_posx
+        carte_posx += carte_size[2] + 5
+        c.carte["posy"] = (screen_size[1] / 2) - 5
+
+    carte_posx = 100
+    for c in playerTwo.field :
+        c.carte["carte"] = pygame.image.load(str(c.carte["name"]) + "_pose.png").convert_alpha()
+        carte_size = c.carte["carte"].get_rect()
+        c.carte["posx"] = carte_posx
+        carte_posx += carte_size[2] + 5
+        c.carte["posy"] = (screen_size[1] / 2) - (carte_size[3] + 10)
+
+    lifeBack = pygame.image.load("vie.png").convert_alpha()
+    lifeBackEnemy = pygame.image.load("vie.png").convert_alpha()
+    if playerOne.health < 0 :
+        playerOne.health = 0
+    if playerTwo.health < 0 :
+        playerTwo.health = 0
+    life = pygame.image.load(str(playerOne.health) + ".png").convert_alpha()
+    lifeEnemy = pygame.image.load(str(playerTwo.health) + ".png").convert_alpha()
+
+    return lifeBack,lifeBackEnemy,life,lifeEnemy, playerOne, playerTwo
+
+
+
+def cartePosition(fenetre, playerOne, playerTwo, endOfRound):
+
+    for c in playerOne.hand:
+        # positionnement des cartes dans la main
+        fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
+        carte_size = c.carte["carte"].get_rect()
+        c.carte["attackImg"] = pygame.image.load(str(c.attack) + ".png").convert_alpha()
+        c.carte["healthImg"] = pygame.image.load(str(c.health) + ".png").convert_alpha()
+        c.carte["shieldImg"] = pygame.image.load(str(c.shield) + ".png").convert_alpha()
+        c.carte["attackPosx"] = c.carte["posx"] + (carte_size[2] / 15)
+        c.carte["attackPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 9))
+        c.carte["healthPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 5))
+        c.carte["healthPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 9))
+        c.carte["shieldPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 5))
+        c.carte["shieldPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 3))
+        manax = c.carte["posx"] + 5
+        manay = c.carte["posy"] + 10
+        fenetre.blit(c.carte["attackImg"], (c.carte["attackPosx"], c.carte["attackPosy"]))
+        fenetre.blit(c.carte["healthImg"], (c.carte["healthPosx"], c.carte["healthPosy"]))
+        fenetre.blit(pygame.image.load("bouclier.png").convert_alpha(), (c.carte["shieldPosx"] - 5, c.carte["shieldPosy"] - 10))
+        fenetre.blit(c.carte["shieldImg"], (c.carte["shieldPosx"], c.carte["shieldPosy"]))
+        fenetre.blit(pygame.image.load(str(c.carte["cost"]) + ".png").convert_alpha(), (manax, manay))
+
+    for c in playerTwo.hand:
+        # positionnement des cartes dans la main
+        fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
+
+    fenetre.blit(endOfRound["button"], (endOfRound["posx"], endOfRound["posy"]))
+
+    for c in playerOne.field:
+        # positionnement des cartes sur le térrain
+        carte_size = c.carte["carte"].get_rect()
+        fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
+        c.carte["attackImg"] = pygame.image.load(str(c.attack) + ".png").convert_alpha()
+        c.carte["healthImg"] = pygame.image.load(str(c.health) + ".png").convert_alpha()
+        if c.shield > 0 :
+            c.carte["shieldImg"] = pygame.image.load(str(c.shield) + ".png").convert_alpha()
+        if c.carte["provoc"] == "Provoc" :
+            if c.carte["statu"] == 0 :
+                fenetre.blit(pygame.image.load("peutAttackP.png").convert_alpha(), (c.carte["posx"], c.carte["posy"]))
+            c.carte["attackPosx"] = c.carte["posx"] + 10
+            c.carte["attackPosy"] = c.carte["posy"] + (carte_size[3] / 2) + 20
+            c.carte["healthPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 5)) - 10
+            c.carte["healthPosy"] = c.carte["posy"] + (carte_size[3] / 2) + 20
+            c.carte["shieldPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 5)) - 10
+            c.carte["shieldPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 2))
+
+        else :
+            if c.carte["statu"] == 0 :
+                fenetre.blit(pygame.image.load("peutAttack.png").convert_alpha(), (c.carte["posx"], c.carte["posy"]))
+            c.carte["attackPosx"] = c.carte["posx"] + (carte_size[2] / 15)
+            c.carte["attackPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 4))
+            c.carte["healthPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 4))
+            c.carte["healthPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 4))
+            c.carte["shieldPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 4))
+            c.carte["shieldPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 2))
+        if c.shield > 0 :
+            fenetre.blit(pygame.image.load("bouclier.png").convert_alpha(), (c.carte["shieldPosx"] - 5, c.carte["shieldPosy"] - 10))
+            fenetre.blit(c.carte["shieldImg"], (c.carte["shieldPosx"], c.carte["shieldPosy"]))
+        fenetre.blit(c.carte["attackImg"], (c.carte["attackPosx"], c.carte["attackPosy"]))
+        fenetre.blit(c.carte["healthImg"], (c.carte["healthPosx"], c.carte["healthPosy"]))
+
+    for c in playerTwo.field:
+        # positionnement des cartes sur le térrain
+        carte_size = c.carte["carte"].get_rect()
+        fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
+        c.carte["attackImg"] = pygame.image.load(str(c.attack) + ".png").convert_alpha()
+        c.carte["healthImg"] = pygame.image.load(str(c.health) + ".png").convert_alpha()
+        if c.shield > 0 :
+            c.carte["shieldImg"] = pygame.image.load(str(c.shield) + ".png").convert_alpha()
+        if c.carte["provoc"] == "Provoc" :
+            c.carte["attackPosx"] = c.carte["posx"] + 10
+            c.carte["attackPosy"] = c.carte["posy"] + (carte_size[3] / 2) + 20
+            c.carte["healthPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 5)) - 10
+            c.carte["healthPosy"] = c.carte["posy"] + (carte_size[3] / 2) + 20
+            c.carte["shieldPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 5)) - 10
+            c.carte["shieldPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 2))
+
+        else :
+            c.carte["attackPosx"] = c.carte["posx"] + (carte_size[2] / 15)
+            c.carte["attackPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 4))
+            c.carte["healthPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 4))
+            c.carte["healthPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 4))
+            c.carte["shieldPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 4))
+            c.carte["shieldPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 2))
+        if c.shield > 0 :
+            fenetre.blit(pygame.image.load("bouclier.png").convert_alpha(), (c.carte["shieldPosx"] - 5, c.carte["shieldPosy"] - 10))
+            fenetre.blit(c.carte["shieldImg"], (c.carte["shieldPosx"], c.carte["shieldPosy"]))
+        fenetre.blit(c.carte["attackImg"], (c.carte["attackPosx"], c.carte["attackPosy"]))
+        fenetre.blit(c.carte["healthImg"], (c.carte["healthPosx"], c.carte["healthPosy"]))
+        #print("c.shield : " + str(c.shield) + "|| c.carte[shield] : " + str(c.carte["shield"]))
+
+
+def jouer():
 
     pygame.init()
-    screen_size = 1300, 800
     fenetre = pygame.display.set_mode(screen_size)
 
     # definir tous fonds
-    fondEcran = ["salle", "Terrain", "terrain3", "terrain4", "terrain5", "terrain6"]
+    fondEcran = ["salle", "Terrain", "terrain3", "terrain4", "terrain5", "terrain6", "panda_roux"]
     #choix aléatoire du fond
     numFond = random.randint(0, len(fondEcran) - 1)
     fond = pygame.image.load(fondEcran[numFond] + ".png").convert_alpha()
@@ -65,6 +212,7 @@ def main():
     continuer = 1
     continuer_menu = 1
     continuer_game = 1
+    continuer_gameMenu = 0
     saisi_carte = 0
     saisi_attack = 0
     carte_selection_id = 0
@@ -73,6 +221,7 @@ def main():
     carte_attack = ()
     deplacement = 5
     positionOk = 0
+    full = 0
     pygame.key.set_repeat(400, 30)
     winner = None
     turn = ["one", "two"]
@@ -154,113 +303,18 @@ def main():
 
         while winner == None :
             continuer_game = 1
+            if full :
+                fenetre = pygame.display.set_mode(screen_size, FULLSCREEN)
+            else :
+                fenetre = pygame.display.set_mode(screen_size)
+            
+            lifeBack,lifeBackEnemy,life,lifeEnemy, playerOne, playerTwo = carteHandAndField(playerOne, playerTwo)
 
-            carte_posx = 400
-            for c in playerOne.hand:
-                # positionnement des cartes dans la main
-                carte_size = c.carte["carte"].get_rect()
-                c.carte["posx"] = carte_posx
-                carte_posx += (carte_size[2] / 3)
-                c.carte["posy"] = screen_size[1] - (carte_size[3] + 20)
-
-            carte_posx = 400
-            for c in playerTwo.hand :
-                # positionnement des cartes ennemies dans sa main
-                c.carte["carte"] = pygame.image.load("carte_dos.png").convert_alpha()
-                carte_size = c.carte["carte"].get_rect()
-                c.carte["posx"] = carte_posx
-                carte_posx += (carte_size[2] / 3)
-                c.carte["posy"] = 20
-
-            carte_posx = 100
-            for c in playerOne.field :
-                c.carte["carte"] = pygame.image.load(str(c.carte["name"]) + "_pose.png").convert_alpha()
-                carte_size = c.carte["carte"].get_rect()
-                c.carte["posx"] = carte_posx
-                carte_posx += carte_size[2] + 5
-                c.carte["posy"] = (screen_size[1] / 2) - 5
-
-            carte_posx = 100
-            for c in playerTwo.field :
-                c.carte["carte"] = pygame.image.load(str(c.carte["name"]) + "_pose.png").convert_alpha()
-                carte_size = c.carte["carte"].get_rect()
-                c.carte["posx"] = carte_posx
-                carte_posx += carte_size[2] + 5
-                c.carte["posy"] = (screen_size[1] / 2) - (carte_size[3] + 10)
-
-            lifeBack = pygame.image.load("vie.png").convert_alpha()
-            lifeBackEnemy = pygame.image.load("vie.png").convert_alpha()
-            if playerOne.health < 0 :
-                playerOne.health = 0
-            if playerTwo.health < 0 :
-                playerTwo.health = 0
-            life = pygame.image.load(str(playerOne.health) + ".png").convert_alpha()
-            lifeEnemy = pygame.image.load(str(playerTwo.health) + ".png").convert_alpha()
             fenetre.blit(lifeBackEnemy, (0, 0))
             while continuer_game: # boucle du jeu
 
                 fenetre.blit(fond, (0, 0))
-                for c in playerOne.hand:
-                    # positionnement des cartes dans la main
-                    if c.carte["health"] <= 0 :
-                        playerOne.field.remove(c)
-                    fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
-                    carte_size = c.carte["carte"].get_rect()
-                    c.carte["attackImg"] = pygame.image.load(str(c.attack) + ".png").convert_alpha()
-                    c.carte["healthImg"] = pygame.image.load(str(c.health) + ".png").convert_alpha()
-                    c.carte["attackPosx"] = c.carte["posx"] + (carte_size[2] / 15)
-                    c.carte["attackPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 9))
-                    c.carte["healthPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 5))
-                    c.carte["healthPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 9))
-                    manax = c.carte["posx"] + 5
-                    manay = c.carte["posy"] + 10
-                    fenetre.blit(c.carte["attackImg"], (c.carte["attackPosx"], c.carte["attackPosy"]))
-                    fenetre.blit(c.carte["healthImg"], (c.carte["healthPosx"], c.carte["healthPosy"]))
-                    fenetre.blit(pygame.image.load(str(c.carte["cost"]) + ".png").convert_alpha(), (manax, manay))
-
-                for c in playerTwo.hand:
-                    # positionnement des cartes dans la main
-                    fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
-
-                fenetre.blit(endOfRound["button"], (endOfRound["posx"], endOfRound["posy"]))
-
-                for c in playerOne.field:
-                    # positionnement des cartes sur le térrain
-                    if c.carte["health"] <= 0 :
-                        playerOne.field.remove(c)
-                    carte_size = c.carte["carte"].get_rect()
-                    fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
-                    c.carte["attackImg"] = pygame.image.load(str(c.carte["attack"]) + ".png").convert_alpha()
-                    c.carte["healthImg"] = pygame.image.load(str(c.carte["health"]) + ".png").convert_alpha()
-                    if c.carte["provoc"] == "Provoc" :
-                        c.carte["attackPosx"] = c.carte["posx"] + 10
-                        c.carte["attackPosy"] = c.carte["posy"] + (carte_size[3] / 2) + 20
-                        c.carte["healthPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 5)) - 10
-                        c.carte["healthPosy"] = c.carte["posy"] + (carte_size[3] / 2) + 20
-
-                    else :
-                        c.carte["attackPosx"] = c.carte["posx"] + (carte_size[2] / 15)
-                        c.carte["attackPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 4))
-                        c.carte["healthPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 4))
-                        c.carte["healthPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 4))
-                    fenetre.blit(c.carte["attackImg"], (c.carte["attackPosx"], c.carte["attackPosy"]))
-                    fenetre.blit(c.carte["healthImg"], (c.carte["healthPosx"], c.carte["healthPosy"]))
-
-                for c in playerTwo.field:
-                    # positionnement des cartes sur le térrain
-                    if c.carte["health"] <= 0 :
-                        playerTwo.field.remove(c)
-                    carte_size = c.carte["carte"].get_rect()
-                    fenetre.blit(c.carte["carte"], (c.carte["posx"], c.carte["posy"]))
-                    c.carte["attackImg"] = pygame.image.load(str(c.carte["attack"]) + ".png").convert_alpha()
-                    c.carte["healthImg"] = pygame.image.load(str(c.carte["health"]) + ".png").convert_alpha()
-                    c.carte["attackPosx"] = c.carte["posx"] + (carte_size[2] / 15)
-                    c.carte["attackPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 4))
-                    c.carte["healthPosx"] = c.carte["posx"] + (carte_size[2] - (carte_size[2] / 4))
-                    c.carte["healthPosy"] = c.carte["posy"] + (carte_size[3] - (carte_size[3] / 4))
-                    fenetre.blit(c.carte["attackImg"], (c.carte["attackPosx"], c.carte["attackPosy"]))
-                    fenetre.blit(c.carte["healthImg"], (c.carte["healthPosx"], c.carte["healthPosy"]))
-
+                cartePosition(fenetre, playerOne, playerTwo, endOfRound)
 
                 # health player and enemy
                 posLifeBack = screen_size[0] - 120, (screen_size[1] - 100)
@@ -283,6 +337,7 @@ def main():
                     fenetre.blit(pygame.image.load(str(playerOne.mana) + ".png").convert_alpha(), (screen_size[0] - 35,screen_size[1] - 45))
                 else :
                     fenetre.blit(pygame.image.load("0.png").convert_alpha(), (screen_size[0] - 35,screen_size[1] - 45))
+
                 pygame.display.flip()
 
                 for event in pygame.event.get():   #On parcours la liste de tous les événements reçus
@@ -295,8 +350,9 @@ def main():
                     if event.type == KEYDOWN : # lorsqu'on appui sur un touche du clavier
 
                         if event.key == K_ESCAPE: # esc on retourne au menu du jeu
-                            continuer_game = 0
-                            continuer_menu = 1
+                            continuer_game = 1
+                            continuer_menu = 0
+                            continuer_gameMenu = 1
                             continuer = 1
 
                     if event.type == MOUSEBUTTONUP:
@@ -312,19 +368,33 @@ def main():
                                     carte_size = carte.carte["carte"].get_rect()
                                     posx, posy = carte.carte["posx"], carte.carte["posy"]
                                     if ( ( eposx >= posx and eposx <= (carte_size[2] + posx) ) and ( eposy >= posy and eposy <= (carte_size[3] + posy) ) ):
+                                        pygame.mouse.set_cursor(*pygame.cursors.arrow)
+                                        saisi_attack = 0
                                         saisi_carte = 1
                                         carte_selection = carte
                                         carte_selection_id = i
                                 
                                 roundButton_size = endOfRound["button"].get_rect()
                                 if ( ( eposx >= endOfRound["posx"] and eposx <= (roundButton_size[2] + endOfRound["posx"]) ) and ( eposy >= endOfRound["posy"] and eposy <= (roundButton_size[3] + endOfRound["posy"]) ) ):
-                                    playerTwo.pickUp(playerTwo.deck)
-                                    winner = Field.playTurn2(playerTwo, playerOne)
                                     for c in playerOne.field :
                                         c.carte["statu"] = 0
+                                    pygame.mouse.set_cursor(*pygame.cursors.arrow)
                                     saisi_attack = 0
-                                    playerOne.pickUp(playerOne.deck)
-                                    continuer_game = 0
+                                    playerTwo.pickUp(playerTwo.deck)
+                                    if mode_game == 1 :
+                                        winner = Field.playTurn2(playerTwo, playerOne)
+                                        playerOne.pickUp(playerOne.deck)
+                                        saisi_attack = 0
+                                        continuer_game = 0
+                                    elif mode_game == 2 :
+                                        fenetre.blit(fond, (0, 0))
+                                        fenetre.blit(pygame.image.load("wait.png").convert_alpha(), (0, 0))
+                                        pygame.display.flip()
+                                        time.sleep(5)
+                                        playerOne, playerTwo = playerTwo, playerOne
+                                        carteHandAndField(playerOne, playerTwo)
+                                        saisi_attack = 0
+                                        continuer_game = 0
                         else :
                             saisi_carte = 2
                             carte_selection_id = 0
@@ -380,6 +450,11 @@ def main():
                                         pygame.mouse.set_cursor(*pygame.cursors.arrow)
                                         carte_attack.carte["statu"] = 1
                                         saisi_attack = 0
+                                        continuer_game = 0
+                                        break
+                                    if ( ( eposx < posx and eposx > (carte_size[2] + posx) ) and ( eposy < posy and eposy > (carte_size[3] + posy) ) or ( eposx > xPos and eposx < (lifeBackEnemySize[2] + xPos) ) and ( eposy < yPos and eposy > (lifeBackEnemySize[3] + yPos) )):
+                                        pygame.mouse.set_cursor(*pygame.cursors.arrow)
+                                        saisi_attack = 0
 
                     if saisi_carte == 1 :
                         if event.type == MOUSEMOTION :
@@ -392,6 +467,10 @@ def main():
                 if saisi_carte == 2:
                     saisi_carte = 0
 
+
+            while continuer_gameMenu :
+                full, continuer_gameMenu, winner, continuer_game = menuJeux(fenetre)
+
             if(playerOne.health <= 0):
                 winner = playerTwo.name
                 continuer_game = 0
@@ -402,6 +481,15 @@ def main():
                 continuer_menu = 1
             if(winner != None):
                 print("Winner : " + str(winner))
+
+
+
+def menuJeux(fenetre):
+    full = 1
+    continuer_gameMenu = 0
+    winner = None
+    continuer_game = 0
+    return full, continuer_gameMenu, winner, continuer_game
 
 
 

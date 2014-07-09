@@ -29,7 +29,7 @@ class Player :
             self.deck.remove(self.deck[numCard])
             #print("hand", self.hand, " ; ")
         self.name = name
-        self.health = 17
+        self.health = 30
         self.mana = 1
         self.manaMax = 1
         self.field = []
@@ -88,7 +88,8 @@ class Player :
                     print("Je suis un IA donc random")
                     numCard = random.randint(0, len(self.hand) - 1)
                     randomCard = self.hand[numCard]
-                    if(self.mana < randomCard.cost):
+                    if(self.mana <= randomCard.cost):
+                        choice = True
                         print("je part")
                         break
                     nameServantGoToField = randomCard.name.lower()  
@@ -137,7 +138,8 @@ class Player :
         """clean field"""
         for card in self.field :
             if card.isAlive() == False :
-                self.field.remove(card)
+                if card in self.field :
+                    self.field.remove(card)
 
 
     def toString(self) :

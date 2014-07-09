@@ -35,7 +35,7 @@ class CardSet :
             #listServant.append(Card(cardSet[0], cardSet[2], cardSet[1], cardSet[3], cardSet[4], cardSet[5], cardSet[6], cardSet[7],
             #                        Power(cardSet[8], cardSet[9])
             #                        ))
-            listServantG.append(Card({"carte" : pygame.image.load(str(cardSet[0]) + ".png").convert_alpha(),"name": cardSet[0], "attack" : cardSet[1],"cost" : cardSet[2] , "health" : cardSet[3], "attackImg" : pygame.image.load(str(cardSet[1]) + ".png").convert_alpha(), "healthImg" : pygame.image.load(str(cardSet[3]) + ".png").convert_alpha(), "provoc" : cardSet[4], "shield" : cardSet[5] , "camo" : cardSet[6], "element" : cardSet[7], "power" : Power(cardSet[8], cardSet[9]), "posx" : 0, "posy" : 0, "attackPosx" : 0, "attackPosy" : 0, "healthPosx" : 0, "healthPosy" : 0, "shieldPosx" : 0, "shieldPosy" : 0, "statu" : 1}))
+            listServantG.append(Card({"carte" : pygame.image.load(str(cardSet[0]) + ".png").convert_alpha(),"name": cardSet[0], "attack" : cardSet[1], "health" : cardSet[2], "cost" : cardSet[3] , "attackImg" : pygame.image.load(str(cardSet[1]) + ".png").convert_alpha(), "healthImg" : pygame.image.load(str(cardSet[3]) + ".png").convert_alpha(), "provoc" : cardSet[4], "shield" : cardSet[5] , "shieldImg" : pygame.image.load(str(cardSet[5]) + ".png").convert_alpha() , "camo" : cardSet[6], "element" : cardSet[7], "power" : Power(cardSet[8], cardSet[9]), "posx" : 0, "posy" : 0, "attackPosx" : 0, "attackPosy" : 0, "healthPosx" : 0, "healthPosy" : 0, "shieldPosx" : 0, "shieldPosy" : 0, "statu" : 1}))
         file.close
         #CardSet.listCard = listServant
         CardSet.listCardG = listServantG
